@@ -191,8 +191,8 @@ function EditQuiz() {
               <DateTimePicker 
               label={'Start time'}
               value={dayjs(quiz.startTime)}
-              onAccept={(value) => {dispatch(updateQuizStartTime(value))}}
-              onChange={(value) => {dispatch(updateQuizStartTime(value))}}/>
+              onAccept={(value) => {value && dispatch(updateQuizStartTime(value))}}
+              onChange={(value) => {value && dispatch(updateQuizStartTime(value))}}/>
             </LocalizationProvider>
             &nbsp;&nbsp;&nbsp;
             <EditableNumber
@@ -206,7 +206,7 @@ function EditQuiz() {
             />
           </Box>
           <Box sx={{ mt: 2 }}>
-              { quiz.prizeAmount > 0 ? `Prize: ${quiz.prizeAmount} EDU` : 
+              { quiz.prizeAmount && quiz.prizeAmount > 0 ? `Prize: ${quiz.prizeAmount} EDU` : 
                   <form autoComplete="off" onSubmit={submit}>
                   <TextField 
                                 label="Prize in EDU"
@@ -247,12 +247,12 @@ function EditQuiz() {
                 checked={status}
                 disabled={!isConfirmed && quiz.prizeAmount == 0}
                 onChange={() => {
-                  if (isConfirmed || quiz.prizeAmount > 0){
+                  if (isConfirmed || (quiz.prizeAmount && quiz.prizeAmount > 0)){
                     dispatch(updateQuizStatus());
                     setStatus(!status);
                   }
                 }} />}
-                label={isConfirmed || quiz.prizeAmount > 0 ? "Public Quiz" : "Public Quiz (requires payment)"} /> : 
+                label={isConfirmed || (quiz.prizeAmount && quiz.prizeAmount > 0) ? "Public Quiz" : "Public Quiz (requires payment)"} /> : 
               <FormControlLabel disabled control={<Switch />} label="Public Quiz (connect wallet first)" />}
             </FormGroup>
           </Box>

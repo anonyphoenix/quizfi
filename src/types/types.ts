@@ -22,7 +22,7 @@ export interface QuizType {
   status?: string;
   updatedAt?: Date;
   points?: number;
-  startTime?: Date;
+  startTime: Date;
   endTime?: Date;
   owner?: string;
   prizeAmount?: number;

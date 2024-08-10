@@ -178,7 +178,7 @@ const Index = () => {
           </div>
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {userQuizzes.map((quiz, index) => (
+            {userQuizzes.map((quiz: any, index: any) => (
               <Grid key={quiz.id} item>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
@@ -204,7 +204,7 @@ const Index = () => {
           </div>
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {ongoingQuizzes.map((quiz, index) => (
+            {ongoingQuizzes.map((quiz: any, index: any) => (
               <Grid key={quiz.id} item>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
@@ -230,7 +230,7 @@ const Index = () => {
           </div>
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {upcomingQuizzes.map((quiz, index) => (
+            {upcomingQuizzes.map((quiz: any, index: any) => (
               <Grid key={quiz.id} item>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
@@ -256,7 +256,7 @@ const Index = () => {
           </div>
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {finishedQuizzes.map((quiz, index) => (
+            {finishedQuizzes.map((quiz: any, index: any) => (
               <Grid key={quiz.id} item>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>

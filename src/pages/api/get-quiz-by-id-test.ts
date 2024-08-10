@@ -29,8 +29,8 @@ export default async function handler(
       return;
     }
 
-    const modifiedQuestions = quiz.questions.map((question) => {
-      const modifiedOptions = question.options.map((option) => ({
+    const modifiedQuestions = quiz.questions.map((question: any) => {
+      const modifiedOptions = question.options.map((option: any) => ({
         ...option,
         isAnswer: false,
       }));

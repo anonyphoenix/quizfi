@@ -55,7 +55,6 @@ export default async function handler(
 
       res.status(200).json(quiz);
     } catch (err) {
-      console.error(err.message);
       res.status(500).json({ error: 'Failed to insert data' });
     }
   } else {

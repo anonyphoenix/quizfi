@@ -1,7 +1,6 @@
 import { QuestionType, QuizType } from '@/types/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
-import { DarkMode } from '@mui/icons-material';
 /* import { db } from '../../../firebase/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore'; */
 
@@ -49,7 +48,7 @@ export default async function handler(
       const question: QuestionType = quiz.questions[i];
       const correctOption = question.options.find((option) => option.isAnswer);
       const userSelectedOption = userAnswers[i].options.find(
-        (option) => option.isAnswer
+        (option: any) => option.isAnswer
       );
       if (userSelectedOption?.id === correctOption?.id) {
         score += Number(question.points);

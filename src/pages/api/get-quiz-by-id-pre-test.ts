@@ -31,7 +31,7 @@ export default async function handler(
     }
 
     const totalPoints: number = quiz.questions.reduce(
-      (total, question) => total + Number(question.points),
+      (total: any, question: any) => total + Number(question.points),
       0
     );
 

@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function QuizTimer() {
-  const minutes = useSelector(
+  const minutes : number = useSelector(
     (state: RootState) => state.quizTestData.quiz.timelimit
   );
-  const startTime = useSelector(
+  const startTime : Date = useSelector(
     (state: RootState) => state.quizTestData.quiz.startTime
   );
 

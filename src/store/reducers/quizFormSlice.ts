@@ -96,9 +96,9 @@ const quizSlice = createSlice({
         }
       }
     },
-    updateQuizStartTime(state, action: PayloadAction<Dayjs | null>) {
+    updateQuizStartTime(state, action: PayloadAction<Dayjs>) {
       if (state.quiz) {
-        state.quiz.startTime = action.payload?.toDate();
+        state.quiz.startTime = action.payload.toDate();
       }
     },
     addQuestion(state, action: PayloadAction<QuestionType>) {
