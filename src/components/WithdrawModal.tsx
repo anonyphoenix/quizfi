@@ -109,7 +109,7 @@ const WithdrawModal: FC<WithdrawalModalProps> = ({
         )}
         {error && (
           <Box sx={{ mt: 2 }}>
-            <Typography color="red">You don't have enough balance to withdraw.</Typography>
+            <Typography color="red">You don&apos;t have enough balance to withdraw.</Typography>
           </Box>
         )}
       </Box>

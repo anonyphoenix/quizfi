@@ -20,15 +20,6 @@ import clientPromise from '../../lib/mongodb';
 function MyResults() {
   const [result, setResult] = useState<any | undefined>(undefined);
   const {address} = useAccount();
-  if (!address) {
-    return (
-      <Box mt={4} sx={{ width: '80%' }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Connect your wallet to view your quiz results.
-      </Typography>
-      </Box>
-    );
-  }
 
   useEffect(() => {
     const loadData = async () => {
@@ -43,6 +34,18 @@ function MyResults() {
     };
     loadData();
   });
+  
+  if (!address) {
+    return (
+      <Box mt={4} sx={{ width: '80%' }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Connect your wallet to view your quiz results.
+      </Typography>
+      </Box>
+    );
+  }
+
+
 
   const questionStyle = {
     backgroundColor: '#FFF9C4',

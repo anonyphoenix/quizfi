@@ -48,8 +48,8 @@ function QuizTimer() {
       </Typography>
       <Typography variant="h6" fontWeight="bold">
         {hoursLeft}:
-        {minutesLeft < 10 ? '0' : ''}{minutesLeft}':
-        {secondsLeft < 10 ? '0' : ''}{secondsLeft}"
+        {minutesLeft < 10 ? '0' : ''}{minutesLeft}&apos;:
+        {secondsLeft < 10 ? '0' : ''}{secondsLeft}&quot;
       </Typography>
     </Box>
   );
