@@ -107,7 +107,7 @@ function QuizTaker() {
 
             <FormControl component="fieldset" sx={{ mt: 2 }}>
               <RadioGroup name={`question-${currentQuestion.id}`}>
-                {currentQuestion.options.map((option) => (
+                {currentQuestion.options.map((option: any) => (
                   <FormControlLabel
                     key={option.id}
                     value={option.id}
