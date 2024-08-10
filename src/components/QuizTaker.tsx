@@ -8,9 +8,8 @@ import {
   movePrev,
   selectAnswer,
   setCurrentQuestion,
-  setQuizTestData,
 } from '@/store/reducers/quizTestSlice';
-import { QuestionType, QuizType } from '@/types/types';
+import { QuestionType } from '@/types/types';
 import {
   Box,
   Button,
@@ -24,11 +23,9 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 function QuizTaker() {
   const router = useRouter();
   const quiz = useSelector((state: RootState) => state.quizTestData.quiz);
