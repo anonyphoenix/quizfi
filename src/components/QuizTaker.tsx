@@ -49,12 +49,12 @@ function QuizTaker() {
 
   const questionIndex =
     quiz.questions.findIndex(
-      (question) => question.id === currentQuestion?.id
+      (question: any) => question.id === currentQuestion?.id
     ) + 1;
 
   const totalQuestionsAttempted = quiz.questions.reduce(
-    (count, question) =>
-      question.options.some((option) => option.isAnswer) ? count + 1 : count,
+    (count: any, question: any) =>
+      question.options.some((option: any) => option.isAnswer) ? count + 1 : count,
     0
   );
 

@@ -136,7 +136,7 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
               sx={{ mt: 1, mb: 2 }}
               fullWidth
               value={`${window.location.origin}/startquiz/${
-                quizzes.find((quiz) => quiz.id === selectedQuizId)?.id
+                quizzes.find((quiz: any) => quiz.id === selectedQuizId)?.id
               }`}
               InputProps={{
                 endAdornment: (
@@ -254,7 +254,7 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
 
             <List sx={{ maxHeight: '50vh', overflow: 'auto' }}>
               <List>
-                {quizzes.map((quiz, index) => (
+                {quizzes.map((quiz: any, index: any) => (
                   <React.Fragment key={quiz.id}>
                     <ListItemButton onClick={() => handleOptionClick(quiz.id)}>
                       <ListItemText primary={`#${index + 1} ${quiz.title}`} />

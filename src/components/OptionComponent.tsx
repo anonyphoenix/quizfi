@@ -33,7 +33,7 @@ function Option({
 
   const options = useSelector((state: RootState) => {
     const question = state.quizform.quiz.questions.find(
-      (q) => q.id === questionId
+      (q: any) => q.id === questionId
     );
     return question ? question.options : [];
   });
