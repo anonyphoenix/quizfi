@@ -25,7 +25,7 @@ export interface QuizType {
   startTime: Date;
   endTime?: Date;
   owner?: string;
-  prizeAmount?: number;
+  prizeAmount: number;
   prizeLogic?: string;
   prizeProcessed?: boolean;
 }
