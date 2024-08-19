@@ -4,6 +4,11 @@ QuizFi is a learn-to-earn platform built with Next.js and TypeScript. It allows 
 Quiz creators can incentivize quiz takers to study by setting a prize for top performers.
 
 
+## Online Demo
+
+[https://quizfi.click](https://quizfi.click)
+
+
 ## Installation
 
 1. Clone the repository to your local machine.

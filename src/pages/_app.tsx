@@ -39,11 +39,9 @@ export default function MyApp(props: MyAppProps) {
   useEffect(() => {
     const handleRouteChange = () => {
       const path = router.pathname;
-      if (path.startsWith('/editquiz/')) {
-        document.body.style.backgroundColor = '#f0f0f0';
-      } else if (path === '/') {
+      if (path === '/') {
         document.body.style.backgroundColor = '#E7DDD6';
-      } else if (path.startsWith('/startquiz/')) {
+      } else {
         document.body.style.backgroundColor = '#f0f0f0';
       }
     };

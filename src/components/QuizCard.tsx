@@ -1,7 +1,7 @@
 import { addNotification } from '@/store/reducers/notificationSlice';
 import { removeQuizCardDatabyId } from '@/store/reducers/quizCardsSlice';
 import { QuizType } from '@/types/types';
-import { QuestionAnswer, Delete, Edit } from '@mui/icons-material';
+import { QuestionAnswer, Delete, Edit, Assessment } from '@mui/icons-material';
 import { default as MoreVertIcon } from '@mui/icons-material/MoreVert';
 import {
   Box,
@@ -148,6 +148,16 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 <QuestionAnswer />
               </IconButton>
               <Typography variant="body1">View Results</Typography>
+            </MenuItem>}
+            { address == quiz.owner &&
+            <MenuItem onClick={() => router.push(`/statquiz/${quiz.id}`)}>
+              <IconButton
+                size="small"
+                sx={{ mr: 1, color: theme.palette.primary.dark }}
+              >
+                <Assessment />
+              </IconButton>
+              <Typography variant="body1">Statistics</Typography>
             </MenuItem>}
         </Menu>
       </Box>
