@@ -9,11 +9,39 @@ Quiz creators can incentivize quiz takers to study by setting a prize for top pe
 [https://quizfi.click](https://quizfi.click)
 
 
+## Workflow
+
+QuizFi is a fully functional quiz app deployed on EDUChain testnet. 
+
+### Create Quiz
+
+Anyone can create quizzes for free. Optionally, they can set a prize for top performers. Quizzes with a prize can be set as Public. Public quizzes are listed on the app home page. Payments are in EDU.
+
+![](/presentation/create_quiz.png)
+
+### Take Quiz
+
+Everyone start a quiz at a given time and it ends for everyone when the time runs out. No one can submit answers after a quiz ends.
+
+![](/presentation/take_quiz.png)
+
+### View Statistics
+
+Quiz creators can view statistics of their own quizzes. They can see a list of participants along with their scores and won prizes.
+
+![](/presentation/statistics.png)
+
+### View Reports
+
+Quiz takers can get a quiz report when the quiz time is over.
+
+![](/presentation/quiz_report.png)
+
 ## Installation
 
 1. Clone the repository to your local machine.
 2. Navigate to the project directory and run `pnpm install` to install all dependencies.
-3. Install MongoDB.
+3. Setup MongoDB.
 4. Create a file named `.env.local` and fill it according to the information in the next section.
 5. Run `pnpm run dev` to start the development server.
 6. Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
