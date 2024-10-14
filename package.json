@@ -33,6 +33,7 @@
     "html-to-image": "^1.11.11",
     "i": "^0.3.7",
     "mongodb": "^6.8.0",
+    "multiparty": "^4.2.3",
     "next": "13.2.4",
     "nextjs-progressbar": "^0.0.16",
     "npm": "^9.6.4",

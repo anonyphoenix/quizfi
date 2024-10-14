@@ -119,6 +119,19 @@ const quizSlice = createSlice({
         }
       }
     },
+    updateQuestionImages(
+      state,
+      action: PayloadAction<{ questionId: string; images: string[] }>
+    ) {
+      if (state.quiz) {
+        const question = state.quiz.questions.find(
+          (q) => q.id === action.payload.questionId
+        );
+        if (question) {
+          question.images = action.payload.images;
+        }
+      }
+    },
     updateQuestionPoints(
       state,
       action: PayloadAction<{ questionId: string; points: number }>
@@ -225,6 +238,7 @@ export const {
   updateQuizStatus,
   updateQuizStartTime,
   updateQuestionPoints,
+  updateQuestionImages,
   updateOptionTitle,
   updateOptionIsAnswer,
   removeQuestion,

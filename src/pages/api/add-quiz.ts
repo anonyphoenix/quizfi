@@ -38,6 +38,7 @@ export default async function handler(
           {
             id: uuidv4(),
             prompt: 'Enter question',
+            images: [],
             points: Number(1),
             options: [{ id: uuidv4(), title: 'Enter option', isAnswer: false }],
           },

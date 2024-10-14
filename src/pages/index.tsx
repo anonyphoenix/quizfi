@@ -57,7 +57,7 @@ const Index = () => {
     } else {
       setBalance(0);
     }
-  }, [isConnected, router]);
+  }, [isConnected, router, address, isLoading]);
 
   return (
     <Box sx={{ my: 4, width: '100%' }}>

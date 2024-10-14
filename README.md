@@ -52,13 +52,16 @@ Quiz takers can get a quiz report when the quiz time is over.
 ```
 MONGODB_URI=mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000
 MONGODB_DB=quizfi
+IMAGE_STORAGE_PATH=/usr/share/quizfi/
+IMAGE_HOST_URL=https://img.quizfi.click/
 ```
 
 
 ## Technologies Used
 
-- React JS
+- React
 - Next.js
 - TypeScript
 - MongoDB
 - Material-UI
+- Nginx

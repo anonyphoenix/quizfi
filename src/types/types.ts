@@ -9,6 +9,7 @@ export interface OptionType {
 export interface QuestionType {
   id: string;
   prompt: string;
+  images: string[];
   points: number;
   options: OptionType[];
 }

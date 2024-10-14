@@ -8,22 +8,30 @@ import {
   removeQuestion,
   updateQuestionPoints,
   updateQuestionPrompt,
+  updateQuestionImages
 } from '@/store/reducers/quizFormSlice';
 import { OptionType, QuestionType } from '@/types/types';
 import { Delete } from '@mui/icons-material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import {
   Box,
+  Button,
   Card,
   CardContent,
   Divider,
   IconButton,
+  ImageList,
+  ImageListItem,
   Tooltip,
   Typography,
 } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { styled } from '@mui/material/styles';
+import axios from 'axios';
+import React from 'react';
 
 interface Props {
   question: QuestionType;
@@ -31,13 +39,49 @@ interface Props {
   autofocus?: boolean;
 }
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
 function Question({ question, index, autofocus }: Props) {
   const dispatch = useDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
+  const [uploadProgress, setUploadProgress] = React.useState(0);
+  const [questionImages, setQuestionImages] = React.useState([]);
+
   const questions = useSelector(
     (state: RootState) => state.quizform.quiz.questions
   );
+
+  const handleFileUpload = (event: any) => {
+    const formData = new FormData();
+    for (let i = 0; i < event.target.files.length; i++) {
+      formData.append("files", event.target.files[i]);
+    }
+    axios.post('/api/upload-quiz-img', formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total!);
+        setUploadProgress(percentCompleted);
+      }
+    })
+      .then(response => {
+        dispatch(updateQuestionImages({ questionId: question.id, images: response.data.images }));
+        setQuestionImages(response.data.images);
+      })
+      .catch(error => {
+        console.error(error);
+        // handle error here
+      });
+  };
 
   const removeQuestionHandler = () => {
     if (questions.length > 1) {
@@ -100,7 +144,40 @@ function Question({ question, index, autofocus }: Props) {
             fontSize={'16px'}
             autoFocus={autofocus}
           />
+
+          <Button
+            variant="contained"
+            style={{
+              "width": "-webkit-fill-available",
+              "maxWidth": "fit-content",
+              "whiteSpace": "nowrap",
+              "marginLeft": "3%"
+            }}
+            startIcon={<AddPhotoAlternateIcon />}
+            component="label"
+          >
+            Add Image
+            <VisuallyHiddenInput
+              type="file"
+              onChange={(event: any) => handleFileUpload(event)}
+              multiple
+            />
+          </Button>
         </Box>
+        {questionImages.length > 0 &&
+          <Box>
+            <ImageList sx={{}} cols={3} rowHeight={164}>
+              {questionImages.map((item) => (
+                <ImageListItem key={item}>
+                  <img
+                    srcSet={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&h=164&fit=crop&auto=format`}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Box>}
 
         {question.options?.map((option) => (
           <Option key={option.id} option={option} questionId={question.id} />

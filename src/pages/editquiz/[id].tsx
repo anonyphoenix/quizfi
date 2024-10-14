@@ -115,6 +115,7 @@ function EditQuiz() {
     const newQuestion = {
       id: uuidv4(),
       prompt: '',
+      images: [],
       points: 1,
       options: [{ id: uuidv4(), title: '', isAnswer: false }],
     };
