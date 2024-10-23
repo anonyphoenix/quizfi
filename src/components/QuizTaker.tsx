@@ -17,6 +17,7 @@ import {
   CardActions,
   CardContent,
   CircularProgress,
+  Divider,
   FormControl,
   FormControlLabel,
   Radio,
@@ -100,6 +101,10 @@ function QuizTaker() {
             <Typography variant="body1" sx={{ ml: 0 }}>
               {currentQuestion.prompt}
             </Typography>
+
+            <div style={{"paddingTop":"10px"}}>
+              {currentQuestion.images.map((imgSrc, index) => (<p><img src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc} key={index}/></p>))}
+            </div>
 
             <Typography variant="body2" sx={{ mt: 2 }}>
               {points} {points > 1 ? 'points' : 'point'}

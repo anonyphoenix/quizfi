@@ -42,9 +42,10 @@ Quiz takers can get a quiz report when the quiz time is over.
 1. Clone the repository to your local machine.
 2. Navigate to the project directory and run `pnpm install` to install all dependencies.
 3. Setup MongoDB.
-4. Create a file named `.env.local` and fill it according to the information in the next section.
-5. Run `pnpm run dev` to start the development server.
-6. Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
+4. Run a static files server to serve quiz images.
+5. Create a file named `.env.local` and fill it according to the information in the next section.
+6. Run `pnpm run dev` to start the development server.
+7. Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
 
 ## .env.local Sample Content
@@ -53,7 +54,7 @@ Quiz takers can get a quiz report when the quiz time is over.
 MONGODB_URI=mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000
 MONGODB_DB=quizfi
 IMAGE_STORAGE_PATH=/usr/share/quizfi/
-IMAGE_HOST_URL=https://img.quizfi.click/
+NEXT_PUBLIC_IMAGE_HOST_URL=https://img.quizfi.click/
 ```
 
 
