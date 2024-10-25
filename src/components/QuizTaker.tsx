@@ -102,9 +102,10 @@ function QuizTaker() {
               {currentQuestion.prompt}
             </Typography>
 
+            { currentQuestion.images && 
             <div style={{"paddingTop":"10px"}}>
-              {currentQuestion.images.map((imgSrc, index) => (<p><img src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc} key={index}/></p>))}
-            </div>
+              {currentQuestion.images.map((imgSrc, index) => (<p key={index}><img style={{"width": "100%"}} src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc}/></p>))}
+            </div> }
 
             <Typography variant="body2" sx={{ mt: 2 }}>
               {points} {points > 1 ? 'points' : 'point'}

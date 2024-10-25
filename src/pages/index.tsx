@@ -57,7 +57,7 @@ const Index = () => {
     } else {
       setBalance(0);
     }
-  }, [isConnected, router, address, isLoading]);
+  }, [isConnecting, isConnected, address]);
 
   return (
     <Box sx={{ my: 4, width: '100%' }}>
@@ -172,7 +172,7 @@ const Index = () => {
         >
           Your Created Quizzes ({userQuizzes.length})
         </Typography>
-        {isLoading || isConnecting ? (
+        {isLoading ? (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress color="primary" />
           </div>
