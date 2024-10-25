@@ -24,6 +24,7 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -104,7 +105,7 @@ function QuizTaker() {
 
             { currentQuestion.images && 
             <div style={{"paddingTop":"10px"}}>
-              {currentQuestion.images.map((imgSrc, index) => (<p key={index}><img style={{"width": "100%"}} src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc}/></p>))}
+              {currentQuestion.images.map((imgSrc, index) => (<p key={index}><Image alt={`${index}`} style={{"width": "100%"}} src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc}/></p>))}
             </div> }
 
             <Typography variant="body2" sx={{ mt: 2 }}>

@@ -50,7 +50,7 @@ function useFetchPastQuizResult(id: string | string[] | undefined) {
       }
     };
       postResult();
-  }, [router, dispatch]);
+  }, [router, dispatch, addr, id]);
   
   return { loading, result, error };
 }

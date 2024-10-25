@@ -158,7 +158,7 @@ function EditQuiz() {
     return () => {
       dispatch(removeQuiz());
     };
-  }, [router.query.id, dispatch]);
+  }, [router.query.id, dispatch, addr]);
 
   return (
     <Box

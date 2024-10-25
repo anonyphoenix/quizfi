@@ -22,9 +22,9 @@ export default async function handler(
       return;
     }
 
-    const quiz_to_export = {...quiz.toJSON()}
-    delete quiz_to_export["_id"]
-    delete quiz_to_export["owner"]
+    const quiz_to_export = JSON.parse(JSON.stringify(quiz));
+    delete quiz_to_export["_id"];
+    delete quiz_to_export["owner"];
 
     res.status(200).json(quiz_to_export);
 

@@ -21,14 +21,13 @@ function QuizTimer() {
     const seconds = Math.floor(((new Date(new Date(startTime).getTime() + (minutes * 60000)).getTime()
      - new Date().getTime())/1000));
     setTimeLeft(seconds);
-    console.log(seconds);
 
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [minutes]);
+  }, [minutes, startTime]);
 
   useEffect(() => {
     if (timeLeft <= 0) {

@@ -57,7 +57,7 @@ function useFetchQuizResult() {
     } else {
       router.push('/');
     }
-  }, [testData, router, dispatch]);
+  }, [testData, router, dispatch, addr]);
   
   return { loading, result, error };
 }

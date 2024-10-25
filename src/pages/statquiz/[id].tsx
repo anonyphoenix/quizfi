@@ -41,7 +41,7 @@ function Stats() {
       }
     };
     getStats();
-  }, [router]);
+  }, [router, addr, id]);
 
   const fillData = (data: any) => {
     const columns: GridColDef[] = [

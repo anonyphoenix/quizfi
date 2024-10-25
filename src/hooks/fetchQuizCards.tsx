@@ -51,7 +51,7 @@ const useFetchQuizCards = (owner?: string, limit?: number) => {
     return () => {
       dispatch(removeQuizCardsData());
     };
-  }, [dispatch]);
+  }, [dispatch, owner]);
   // }, [dispatch]);
 
   return loading;

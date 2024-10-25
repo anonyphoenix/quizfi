@@ -166,13 +166,14 @@ function Question({ question, index, autofocus }: Props) {
         </Box>
         {questionImages.length > 0 &&
           <Box>
-            <ImageList sx={{}} cols={3} rowHeight={164}>
-              {questionImages.map((item) => (
+            <ImageList variant="masonry" cols={3} gap={8}>
+              {questionImages.map((item, index) => (
                 <ImageListItem key={item}>
                   <img
-                    srcSet={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&fit=crop&auto=format`}
                     loading="lazy"
+                    alt={`${index}`}
                   />
                 </ImageListItem>
               ))}
