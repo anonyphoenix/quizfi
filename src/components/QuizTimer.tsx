@@ -45,7 +45,7 @@ function QuizTimer() {
       <Typography variant="h6" sx={{ mr: 1 }}>
         Time Left —
       </Typography>
-      <Typography variant="h6" fontWeight="bold">
+      <Typography variant="h6" fontWeight="bold" suppressHydrationWarning>
         {hoursLeft}:
         {minutesLeft < 10 ? '0' : ''}{minutesLeft}&apos;:
         {secondsLeft < 10 ? '0' : ''}{secondsLeft}&quot;

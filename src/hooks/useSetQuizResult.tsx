@@ -22,7 +22,7 @@ type ResultData = {
   id: string;
 };
 
-function useFetchQuizResult() {
+function useSetQuizResult() {
   const [result, setResult] = useState<ResultData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +41,7 @@ function useFetchQuizResult() {
       try {
         const myTestData = { ...testData, 'taker': addr}
         const { data } = await axios.post<ResultData>(
-          '/api/get-result',
+          '/api/set-result',
           myTestData
         );
         setResult(data);
@@ -62,4 +62,4 @@ function useFetchQuizResult() {
   return { loading, result, error };
 }
 
-export default useFetchQuizResult;
+export default useSetQuizResult;

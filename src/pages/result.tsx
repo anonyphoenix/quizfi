@@ -1,19 +1,10 @@
-import useFetchQuizResult from '@/hooks/useFetchQuizResult';
-import { RootState } from '@/store/reducers';
-import { setQuizTestData } from '@/store/reducers/quizTestSlice';
+import useSetQuizResult from '@/hooks/useSetQuizResult';
 import {
-  Box,
-  Card,
-  CircularProgress,
-  Divider,
-  Link,
-  Typography,
+  Box, Link,
+  Typography
 } from '@mui/material';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+
+
 type ResultItem = {
   question: string;
   selectedOption: string;
@@ -29,7 +20,7 @@ type ResultData = {
 };
 
 function Result() {
-  const { result, loading, error } = useFetchQuizResult();
+  const { result, loading, error } = useSetQuizResult();
   const resultLink = `/resultquiz/${result?.id}`;
 
   return (

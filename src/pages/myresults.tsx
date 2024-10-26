@@ -1,20 +1,11 @@
-import useFetchQuizResult from '@/hooks/useFetchQuizResult';
-import { RootState } from '@/store/reducers';
-import { setQuizTestData } from '@/store/reducers/quizTestSlice';
 import {
   Box,
   Card,
-  CircularProgress,
-  Divider,
-  Typography,
+  CircularProgress, Typography
 } from '@mui/material';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
-import clientPromise from '../../lib/mongodb';
 
 
 function MyResults() {

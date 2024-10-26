@@ -64,7 +64,7 @@ export default async function handler(
 
     await db.collection('result').updateOne( { 'quizId' : quizId, 'userId' : taker }, 
       {$set: { 'title': quiz.title, 'score' : score, 'maxScore': maxscore,
-         'prizeWon': 0, 'time': new Date(), 'results': results}}, {upsert: true});
+         'prizeWon': 0, 'time': new Date(), 'endTime': quiz.endTime, 'results': results}}, {upsert: true});
 
     res.status(200).json({ score, maxscore, totalQuestions, results, id });
 
