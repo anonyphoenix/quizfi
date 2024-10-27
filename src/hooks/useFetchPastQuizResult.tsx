@@ -9,6 +9,7 @@ import { useAccount } from 'wagmi';
 
 type ResultItem = {
   question: string;
+  images: string[];
   selectedOption: string;
   correctOption: string;
   points: number;

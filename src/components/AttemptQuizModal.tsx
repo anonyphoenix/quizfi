@@ -39,10 +39,6 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
     setQuizId(event.target.value);
   };
 
-  const handleOptionClick = (quizId: string | undefined) => {
-    setSelectedQuizId(quizId); // Set the selected quiz id
-  };
-
   const handleBackClick = () => {
     setSelectedQuizId(''); // Reset the selected quiz id
     setIsSnackbarOpen(false);
@@ -135,9 +131,7 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
             <TextField
               sx={{ mt: 1, mb: 2 }}
               fullWidth
-              value={`${window.location.origin}/startquiz/${
-                quizzes.find((quiz: any) => quiz.id === selectedQuizId)?.id
-              }`}
+              value={`${quizLink}`}
               InputProps={{
                 endAdornment: (
                   <IconButton onClick={handleCopyClick}>
@@ -163,6 +157,8 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
               Open Link
             </Button>
 
+            { quizzes.find(
+                    (quiz: Partial<QuizType>) => quiz.id === selectedQuizId) && 
             <Box sx={{ mt: 2 }}>
               <Typography variant="body1">
                 <span style={{ fontWeight: 'bold' }}>quiz title:</span>{' '}
@@ -180,7 +176,7 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
                   )?.description
                 }
               </Typography>
-            </Box>
+            </Box> }
             <Button sx={{ mt: 2 }} onClick={handleBackClick}>
               back
             </Button>
@@ -256,7 +252,7 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
               <List>
                 {quizzes.map((quiz: any, index: any) => (
                   <React.Fragment key={quiz.id}>
-                    <ListItemButton onClick={() => handleOptionClick(quiz.id)}>
+                    <ListItemButton onClick={() => setSelectedQuizId(quiz.id)}>
                       <ListItemText primary={`#${index + 1} ${quiz.title}`} />
                     </ListItemButton>
                     {index !== quizzes.length - 1 && <Divider />}

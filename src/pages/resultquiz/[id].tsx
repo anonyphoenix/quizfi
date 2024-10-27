@@ -6,6 +6,8 @@ import {
   Card,
   CircularProgress,
   Divider,
+  ImageList,
+  ImageListItem,
   Typography,
 } from '@mui/material';
 import axios from 'axios';
@@ -15,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 type ResultItem = {
   question: string;
+  images: string[];
   selectedOption: string;
   correctOption: string;
   points: number;
@@ -36,11 +39,13 @@ function Result() {
     backgroundColor: '#FFF9C4',
     p: 2,
     mb: 1,
+    mt: 1
   };
 
   const answerStyle = {
     p: 2,
     mb: 1,
+    mt: 1
   };
 
   const correctAnswerStyle = {
@@ -64,11 +69,26 @@ function Result() {
             You scored {result.score} out of {result.maxscore}
           </Typography>
           <Box>
-            {result.results.map((resultItem) => (
+            {result.results.map((resultItem: ResultItem) => (
               <Card sx={{ p: 3, mb: 2 }} key={resultItem.question}>
                 <Typography variant="h6" sx={questionStyle}>
                   {resultItem.question}
                 </Typography>
+                {resultItem.images && resultItem.images.length > 0 &&
+                  <Box>
+                    <ImageList variant="masonry" cols={3} gap={8}>
+                      {resultItem.images.map((item, index) => (
+                        <ImageListItem key={item}>
+                          <img
+                            srcSet={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&fit=crop&auto=format&dpr=2 2x`}
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&fit=crop&auto=format`}
+                            loading="lazy"
+                            alt={`${index}`}
+                          />
+                        </ImageListItem>
+                      ))}
+                    </ImageList>
+                  </Box>}
                 <Typography
                   variant="subtitle1"
                   sx={

@@ -33,9 +33,7 @@ function Stats() {
         );
         fillData(data);
       } catch (error: any) {
-        if (error.response.data.message){
-          setError(error.response.data.message);
-        }
+        // TODO setError()
       } finally {
         setLoading(false);
       }
@@ -50,13 +48,15 @@ function Stats() {
       { field: 'time', headerName: 'Submission Time' , width: 220},
       { field: 'prize', headerName: 'Prize Won' },
     ];
-    const rows = data.map((r: any) => (
-      { id: r.userId, score: r.score, time: r.time, prize: r.prizeWon }
-    ));
-    const title = data.map((r: any) => (r.title)).reduce((a:any, b: any) => (a));
-    setColumn(columns);
-    setRow(rows);
-    setTitle(title);
+    if (data && data.length > 0){
+      const rows = data.map((r: any) => (
+        { id: r.userId, score: r.score, time: r.time, prize: r.prizeWon }
+      ));
+      const title = data.map((r: any) => (r.title)).reduce((a:any, b: any) => (a));
+      setColumn(columns);
+      setRow(rows);
+      setTitle(title);
+    }
   }
 
   return (

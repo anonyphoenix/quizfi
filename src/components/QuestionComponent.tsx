@@ -56,7 +56,6 @@ function Question({ question, index, autofocus }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const [uploadProgress, setUploadProgress] = React.useState(0);
-  const [questionImages, setQuestionImages] = React.useState([]);
 
   const questions = useSelector(
     (state: RootState) => state.quizform.quiz.questions
@@ -75,7 +74,6 @@ function Question({ question, index, autofocus }: Props) {
     })
       .then(response => {
         dispatch(updateQuestionImages({ questionId: question.id, images: response.data.images }));
-        setQuestionImages(response.data.images);
       })
       .catch(error => {
         console.error(error);
@@ -151,12 +149,13 @@ function Question({ question, index, autofocus }: Props) {
               "width": "-webkit-fill-available",
               "maxWidth": "fit-content",
               "whiteSpace": "nowrap",
-              "marginLeft": "3%"
+              "marginLeft": "3%",
+              "marginBottom": "1%"
             }}
             startIcon={<AddPhotoAlternateIcon />}
             component="label"
           >
-            Add Image
+            Set Images
             <VisuallyHiddenInput
               type="file"
               onChange={(event: any) => handleFileUpload(event)}
@@ -164,10 +163,10 @@ function Question({ question, index, autofocus }: Props) {
             />
           </Button>
         </Box>
-        {questionImages.length > 0 &&
+        {question.images && question.images.length > 0 &&
           <Box>
             <ImageList variant="masonry" cols={3} gap={8}>
-              {questionImages.map((item, index) => (
+              {question.images.map((item, index) => (
                 <ImageListItem key={item}>
                   <img
                     srcSet={`${process.env.NEXT_PUBLIC_IMAGE_HOST_URL}${item}?w=164&fit=crop&auto=format&dpr=2 2x`}

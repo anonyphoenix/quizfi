@@ -6,6 +6,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore'; */
 
 interface ResultType {
   question: string;
+  images: string[];
   selectedOption: string | undefined;
   correctOption: string | undefined;
   points: number;
@@ -56,6 +57,7 @@ export default async function handler(
       maxscore += Number(question.points);
       results.push({
         question: `#${i + 1}:` + question.prompt,
+        images: question.images,
         selectedOption: userSelectedOption?.title,
         correctOption: correctOption?.title || '',
         points: question.points,
