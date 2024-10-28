@@ -1,8 +1,6 @@
 import { QuizType } from '@/types/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from "../../../lib/mongodb";
-/* import { db } from '../../../firebase/firebase';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'; */
 
 //to get data to display the quiz cards on index page
 export default async function handler(
@@ -33,12 +31,6 @@ export default async function handler(
       }
     }
     const quizList = await db.collection("quiz").find(q).sort({ 'updatedAt' : -1}).limit(10).toArray();
-
-
-    /* const quizCollection = collection(db, 'quizzes');
-    const quizSnapshot = await getDocs(
-      query(quizCollection, orderBy('updatedAt', 'desc'))
-    ); */
 
     res.status(200).json(JSON.parse(JSON.stringify(quizList)));
   } catch (error) {

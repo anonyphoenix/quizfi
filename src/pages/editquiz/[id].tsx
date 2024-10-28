@@ -16,7 +16,6 @@ import {
 } from '@/store/reducers/quizFormSlice';
 import { QuestionType, QuizType } from '@/types/types';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import {
   Box,
   Card,

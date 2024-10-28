@@ -1,4 +1,3 @@
-import { QuizType } from '@/types/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from "../../../lib/mongodb";
 

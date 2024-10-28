@@ -1,8 +1,5 @@
-import { QuestionType, QuizType } from '@/types/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
-import { DarkMode } from '@mui/icons-material';
-
 
 export default async function handler(
   req: NextApiRequest,

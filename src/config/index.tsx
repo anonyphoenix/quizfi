@@ -1,31 +1,28 @@
 
 // config/index.tsx
 
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import { educhain } from './educhain';
+import { AppKitNetwork } from '@reown/appkit/networks';
+import { cookieStorage, createStorage } from 'wagmi';
 
-import { cookieStorage, createStorage } from 'wagmi'
-// import { arbitrum, arbitrumSepolia } from 'wagmi/chains'
-import { educhain } from './educhain'
-
-// Your WalletConnect Cloud project ID
-export const projectId = 'cf5b0fccc9eb8d115d826f606a8be2d8'
+export const projectId:string = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID!;
 
 // Create a metadata object
-const metadata = {
+export const metadata = {
   name: 'QuizFi',
   description: 'QuizFi App',
   url: 'https://quizfi.click', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/37784886']
-}
+};
 
-// Create wagmiConfig
-const chains = [educhain] as const
-export const config = defaultWagmiConfig({
-  chains,
+export const educhainNetwork = educhain as AppKitNetwork;
+
+export const wagmiAdapter = new WagmiAdapter({
+  networks: [educhain],
   projectId,
-  metadata,
   ssr: true,
   storage: createStorage({
     storage: cookieStorage
   })
-})
+});
