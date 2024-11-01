@@ -8,7 +8,8 @@ import {
 } from '@/store/reducers/quizFormSlice';
 import { OptionType } from '@/types/types';
 import { Close } from '@mui/icons-material';
-import { Checkbox, Grid, IconButton, Tooltip } from '@mui/material';
+import { Checkbox, IconButton, Tooltip } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditableText from './EditableText';
@@ -58,10 +59,10 @@ function Option({
       alignItems="center"
       sx={{ width: '100%', margin: 0 }}
     >
-      <Grid item>
+      <Grid>
         <Checkbox checked={option.isAnswer} onChange={handleCheckboxChange} />
       </Grid>
-      <Grid item sx={{ flexGrow: 1 }}>
+      <Grid sx={{ flexGrow: 1 }}>
         <EditableText
           key={option.id}
           fontSize={'16px'}
@@ -78,7 +79,7 @@ function Option({
           }}
         />
       </Grid>
-      <Grid item>
+      <Grid>
         <Tooltip onClick={removeOptionHandler} title="Remove">
           <IconButton>
             <Close />

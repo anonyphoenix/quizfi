@@ -13,10 +13,10 @@ import {
   Box,
   Button,
   CircularProgress,
-  Grid,
   Modal,
   Typography,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useTheme } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -179,7 +179,7 @@ const Index = () => {
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
             {userQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id} item>
+              <Grid key={quiz.id}>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
             ))}
@@ -205,7 +205,7 @@ const Index = () => {
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
             {ongoingQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id} item>
+              <Grid key={quiz.id}>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
             ))}
@@ -231,7 +231,7 @@ const Index = () => {
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
             {upcomingQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id} item>
+              <Grid key={quiz.id}>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
             ))}
@@ -257,7 +257,7 @@ const Index = () => {
         ) : (
           <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
             {finishedQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id} item>
+              <Grid key={quiz.id}>
                 <QuizCard quiz={quiz} index={index} />
               </Grid>
             ))}

@@ -4,17 +4,18 @@ import {
   AppBar,
   Box,
   Button,
-  Grid,
   Toolbar,
   Typography,
   useTheme,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import QuizTimer from './QuizTimer';
 import { useAccount } from 'wagmi';
+import { NoBackpackSharp } from '@mui/icons-material';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -88,11 +89,10 @@ const Navbar = () => {
       <Toolbar>
         <Grid
           container
-          spacing={2}
-          justifyContent="space-between"
-          alignItems="center"
+          spacing={3}
+          sx={{ flexGrow: 1 }}
         >
-          <Grid item>
+          <Grid>
             <Link href="/">
               <Box>
                 <Typography variant="h6" component="div">
@@ -101,7 +101,7 @@ const Navbar = () => {
               </Box>
             </Link>
           </Grid>
-          <Grid item>
+          <Grid>
             {currentPath === 'quiz_edit' && (
               <Button
                 variant="contained"
@@ -137,13 +137,10 @@ const Navbar = () => {
               </>
             )}
           </Grid>
-          <Grid item xs>
-            {/* This grid item takes up the remaining space */}
-          </Grid>
-          <Grid item>
+          <Grid offset="auto">
             {currentPath === 'quiz_take' && <QuizTimer></QuizTimer>}
           </Grid>
-          <Grid item>
+          <Grid offset="auto">
           <w3m-button />
           </Grid>
         </Grid>

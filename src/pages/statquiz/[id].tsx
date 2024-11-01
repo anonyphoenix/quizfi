@@ -66,6 +66,7 @@ function Stats() {
         Statistics for { title }
       </Typography>
       <DataGrid
+        style={{backgroundColor: 'white'}}
         rows={rows}
         columns={columns}
         initialState={{
