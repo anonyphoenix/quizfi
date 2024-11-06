@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from "../../../lib/mongodb";
+import * as AdmZip from 'adm-zip';
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,9 +9,6 @@ export default async function handler(
   const quizId = req.query.id as string;
 
   try {
-
-    // TODO incomplete
-
     const client = await clientPromise;
 
     const db = client.db(process.env.MONGODB_DB); 
@@ -21,11 +19,30 @@ export default async function handler(
       return;
     }
 
-    const quiz_to_export = JSON.parse(JSON.stringify(quiz));
-    delete quiz_to_export["_id"];
-    delete quiz_to_export["owner"];
+    const quizToExport = JSON.parse(JSON.stringify(quiz));
 
-    res.status(200).json(quiz_to_export);
+    if (new Date(quiz.startTime).getTime() > new Date().getTime()){
+      res.status(403).json({ message: `This quiz has not started yet` });
+      return;
+    }
+
+    delete quizToExport["_id"];
+    delete quizToExport["owner"];
+
+    const zip = new AdmZip();
+    for (let i = 0 ; i < quizToExport.questions.length ; i++) {
+      for (let j = 0 ; j < quizToExport.questions[i].images.length ; j++) {
+        zip.addLocalFile(process.env.IMAGE_STORAGE_PATH + quizToExport.questions[i].images[j]);
+      }
+    }
+    zip.addFile(`${quizId}.json`, Buffer.from(JSON.stringify(quizToExport), "utf8"));
+
+    const zipFileContents = zip.toBuffer();
+    res.writeHead(200, {
+        'Content-Disposition': `attachment; filename="${quizId}.zip"`,
+        'Content-Type': 'application/zip',
+      })
+    return void res.end(zipFileContents);
 
   } catch (error) {
     console.log(error);

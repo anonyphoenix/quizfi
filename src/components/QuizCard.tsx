@@ -158,7 +158,17 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 <Assessment />
               </IconButton>
               <Typography variant="body1">Statistics</Typography>
-            </MenuItem>}
+            </MenuItem> }
+            { quiz.startTime && new Date(quiz.startTime).getTime() < new Date().getTime() &&
+            <MenuItem onClick={() => router.push(`/api/export-quiz-by-id?id=${quiz.id}`)}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <QuestionAnswer />
+            </IconButton>
+            <Typography variant="body1">Export</Typography>
+          </MenuItem> }
         </Menu>
       </Box>
       {/* ============ */}

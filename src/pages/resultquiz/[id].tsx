@@ -1,33 +1,21 @@
 import useFetchPastQuizResult from '@/hooks/useFetchPastQuizResult';
-import { RootState } from '@/store/reducers';
-import { setQuizTestData } from '@/store/reducers/quizTestSlice';
 import {
   Box,
   Card,
   CircularProgress,
-  Divider,
   ImageList,
   ImageListItem,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
+
 type ResultItem = {
   question: string;
   images: string[];
   selectedOption: string;
   correctOption: string;
   points: number;
-};
-
-type ResultData = {
-  score: number;
-  maxscore: number;
-  totalQuestions: number;
-  results: ResultItem[];
 };
 
 function Result() {
