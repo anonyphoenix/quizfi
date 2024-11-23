@@ -31,8 +31,10 @@ export default async function handler(
 
     const zip = new AdmZip();
     for (let i = 0 ; i < quizToExport.questions.length ; i++) {
-      for (let j = 0 ; j < quizToExport.questions[i].images.length ; j++) {
-        zip.addLocalFile(process.env.IMAGE_STORAGE_PATH + quizToExport.questions[i].images[j]);
+      if (quizToExport.questions[i].images) {
+        for (let j = 0 ; j < quizToExport.questions[i].images.length ; j++) {
+          zip.addLocalFile(process.env.IMAGE_STORAGE_PATH + quizToExport.questions[i].images[j]);
+        }
       }
     }
     zip.addFile(`${quizId}.json`, Buffer.from(JSON.stringify(quizToExport), "utf8"));

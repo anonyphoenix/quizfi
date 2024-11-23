@@ -1,7 +1,6 @@
 import { QuizType } from '@/types/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
-import clientPromise from "../../../lib/mongodb";
 import multiparty from 'multiparty';
 import fs from 'fs';
 import path from 'path';
@@ -11,7 +10,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<QuizType[] | {}>
 ) {
-  const client = clientPromise;
 
   if (req.method === 'POST') {
     try {

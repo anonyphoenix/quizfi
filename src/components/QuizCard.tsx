@@ -1,7 +1,7 @@
 import { addNotification } from '@/store/reducers/notificationSlice';
 import { removeQuizCardDatabyId } from '@/store/reducers/quizCardsSlice';
 import { QuizType } from '@/types/types';
-import { QuestionAnswer, Delete, Edit, Assessment } from '@mui/icons-material';
+import { QuestionAnswer, Delete, Edit, Assessment, FileUpload, Source } from '@mui/icons-material';
 import { default as MoreVertIcon } from '@mui/icons-material/MoreVert';
 import {
   Box,
@@ -145,7 +145,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 size="small"
                 sx={{ mr: 1, color: theme.palette.primary.dark }}
               >
-                <QuestionAnswer />
+                <Source />
               </IconButton>
               <Typography variant="body1">View Results</Typography>
             </MenuItem>}
@@ -165,7 +165,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
               size="small"
               sx={{ mr: 1, color: theme.palette.primary.dark }}
             >
-              <QuestionAnswer />
+              <FileUpload />
             </IconButton>
             <Typography variant="body1">Export</Typography>
           </MenuItem> }
