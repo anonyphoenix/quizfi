@@ -1,11 +1,12 @@
 from pymongo import MongoClient
 import datetime
+import common
 
-uri = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12'
-client = MongoClient(uri)
+env = common.read_env()
+client = MongoClient(env.get('MONGODB_URI'))
 
 try:
-    database = client.get_database('quiz1')
+    database = client.get_database(env.get('MONDODB_DB'))
     quiz = database.get_collection('quiz')
     result = database.get_collection('result')
     balance = database.get_collection('balance')

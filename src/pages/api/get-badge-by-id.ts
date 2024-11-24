@@ -5,20 +5,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<QuizType[] | {}>
 ) {
-  const quizId = req.query.id as string;
+
+  const badgeId = req.query.id as string;
 
   try {
 
     const client = await clientPromise;
 
     const db = client.db(process.env.MONGODB_DB);
-    const quiz = await db.collection("quiz").findOne({ 'id' : quizId});
+    const badge = await db.collection("badge").findOne({ 'id' : badgeId});
 
-    if (!quiz) {
-      res.status(404).json({ message: `Quiz with id '${quizId}' not found` });
+    if (!badge) {
+      res.status(404).json({ message: `Badge with id '${badgeId}' not found` });
       return;
     }
-    res.status(200).json(JSON.parse(JSON.stringify(quiz))); 
+    res.status(200).json(JSON.parse(JSON.stringify(badge))); 
 
   } catch (error) {
     console.log(error);

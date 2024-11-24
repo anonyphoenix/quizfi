@@ -48,8 +48,11 @@
     "wagmi": "^2.12.25"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^0.15.8",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.8",
     "@types/multiparty": "^4.2.1",
     "@types/uuid": "^10.0.0",
+    "ethers": "^6.13.4",
     "hardhat": "^2.22.16"
   }
 }
