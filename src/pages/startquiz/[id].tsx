@@ -11,6 +11,7 @@ import {
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 
 function StartQuiz() {
   const router = useRouter();
@@ -125,7 +126,7 @@ function StartQuiz() {
                   <Box fontWeight="bold" component="span">
                     Start time:
                   </Box>{' '}
-                  { quizData.startTime && new Date(quizData.startTime).toLocaleString('en-US') } 
+                  { quizData.startTime && dayjs(quizData.startTime).format('YYYY/MM/DD hh:mm:ss A') } 
                 </Typography>
                 <Typography variant="body1" textAlign="left">
                   <Box fontWeight="bold" component="span">

@@ -21,6 +21,7 @@ import { useAccount } from 'wagmi';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import dayjs from 'dayjs';
 
 function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
   //hooks
@@ -215,9 +216,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
             {quiz.startTime && (
               <>
                 Starts at{' '}
-                {new Date(quiz.startTime).toLocaleString(
-                  'en-US'
-                )}
+                {dayjs(quiz.startTime).format('YYYY/MM/DD hh:mm:ss A')}
               </>
             )}
           </Typography>
@@ -227,9 +226,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
             {quiz.updatedAt && (
               <>
                 Updated at{' '}
-                {new Date(quiz.updatedAt).toLocaleString(
-                  'en-US'
-                )}
+                {dayjs(quiz.updatedAt).format('YYYY/MM/DD hh:mm:ss A')}
               </>
             )}
           </Typography> }
