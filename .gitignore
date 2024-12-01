@@ -46,4 +46,8 @@ next-env.d.ts
 todo.txt
 
 # hardhat
-/hardhat
+/hardhat/artifacts
+/hardhat/cache
+/hardhat/ignition/deployments
+/hardhat/node_modules
+/hardhat/typechain-types
