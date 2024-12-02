@@ -57,6 +57,7 @@ MONGODB_DB=quizfi
 IMAGE_STORAGE_PATH=/usr/share/quizfi/
 NEXT_PUBLIC_REOWN_PROJECT_ID=abcdefghijklmnopqrstuvwxyz
 NEXT_PUBLIC_IMAGE_HOST_URL=https://img.quizfi.click/
+ACCOUNT_PRIVATE_KEY=0x0123456789abcdef0123456789ABCDEF01234567
 ```
 
 
@@ -66,5 +67,7 @@ NEXT_PUBLIC_IMAGE_HOST_URL=https://img.quizfi.click/
 - Next.js
 - TypeScript
 - MongoDB
+- Hardhat
+- Solidity
 - Material-UI
 - Nginx
