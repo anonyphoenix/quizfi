@@ -61,7 +61,6 @@ const Index = () => {
 
   return (
     <Box sx={{ my: 4, width: '100%' }}>
-      {/* buttons to create and Take Test */}
       <div
         style={{
           display: 'flex',
