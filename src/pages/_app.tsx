@@ -39,7 +39,7 @@ export default function MyApp(props: MyAppProps) {
   useEffect(() => {
     const handleRouteChange = () => {
       const path = router.pathname;
-      if (path === '/') {
+      if (path === '/' || path === '/profile') {
         document.body.style.backgroundColor = '#E7DDD6';
       } else {
         document.body.style.backgroundColor = '#f0f0f0';

@@ -7,6 +7,7 @@ import useFetchQuizCards from '@/hooks/fetchQuizCards';
 import { RootState } from '@/store/reducers';
 import AddIcon from '@mui/icons-material/Add';
 import QuizIcon from '@mui/icons-material/Quiz';
+import Person4Icon from '@mui/icons-material/Person4';
 import GradingIcon from '@mui/icons-material/Grading';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import {
@@ -15,6 +16,8 @@ import {
   CircularProgress,
   Modal,
   Typography,
+  Card,
+  CardContent,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useTheme } from '@mui/material/styles';
@@ -31,13 +34,13 @@ const Index = () => {
   const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
   const [balance, setBalance] = useState(0);
   const theme = useTheme();
-  const { address, isConnecting, isConnected} = useAccount();
+  const { address, isConnecting, isConnected } = useAccount();
   // const quizzes = useSelector((state: RootState) => state.quizCards.quizzes);
   const userQuizzes = useSelector((state: RootState) => state.quizCards.userQuizzes);
   const ongoingQuizzes = useSelector((state: RootState) => state.quizCards.ongoingQuizzes);
   const upcomingQuizzes = useSelector((state: RootState) => state.quizCards.upcomingQuizzes);
   const finishedQuizzes = useSelector((state: RootState) => state.quizCards.finishedQuizzes);
-  
+
   const isLoading = useFetchQuizCards(address, 0);
   const router = useRouter();
 
@@ -61,106 +64,65 @@ const Index = () => {
 
   return (
     <Box sx={{ my: 4, width: '100%' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: '2rem',
-        }}
-      >
-        <Button
-          variant="contained"
-          startIcon={<AddIcon style={{ color: theme.palette.primary.main }} />}
-          sx={{ mr: 1 }}
-          style={{
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.primary.main,
-          }}
-          onClick={() => setOpenCreateQuizModal(true)}
-        >
-          Create Quiz
-        </Button>
-        {/* Modal To Create The the Quiz */}
-        <ModalWrapper openModal={openCreateQuizModal}>
-          <CreateQuizModal
-            openModal={openCreateQuizModal}
-            setOpenModal={setOpenCreateQuizModal}
-          />
-        </ModalWrapper>
-        {/* Button To Take the Quiz */}
-        <Button
-          variant="contained"
-          startIcon={<QuizIcon style={{ color: theme.palette.primary.main }} />}
-          style={{
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.primary.main,
-          }}
-          onClick={() => setOpenAttemptQuizModal(true)}
-        >
-          Take Quiz
-        </Button>
-        {/* Modal To Attempt The the Quiz */}
-        <ModalWrapper openModal={openAttemptQuizModal}>
-          <AttemptQuizModal
-            openModal={openAttemptQuizModal}
-            setOpenModal={setOpenAttemptQuizModal}
-          />
-        </ModalWrapper>
-        { isConnected &&
-        <Button
-          variant="contained"
-          startIcon={<GradingIcon style={{ color: theme.palette.primary.main }} />}
-          style={{
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.primary.main,
-            marginLeft: 10,
-          }}
-          onClick={() => router.push('/myresults')}
-        >
-          View Results
-        </Button>
-        }
-      </div>
-      { isConnected &&
-      <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: '2rem',
-      }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          align="left"
-          gutterBottom
-          fontWeight="bold"
-          mt={1}
-        >
-          Your Prize: {balance} EDU
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<PriceCheckIcon style={{ color: theme.palette.primary.main }} />}
-          style={{
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.primary.main,
-            marginLeft: 10,
-          }}
-          onClick={() => setOpenWithdrawModal(true)}
-        >
-          Withdraw
-        </Button>
-        <ModalWrapper openModal={openWithdrawModal}>
-          <WithdrawModal
-            openModal={openWithdrawModal}
-            setOpenModal={setOpenWithdrawModal}
-          />
-        </ModalWrapper>
-      </div> }
 
-      { isConnected && <div style={{ marginTop: '4rem' }}>
+      <Card sx={{ mb: 4, backgroundColor: theme.palette.secondary.main }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
+              sx={{ mr: 1 }}
+              style={{
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.secondary.main,
+              }}
+              onClick={() => setOpenCreateQuizModal(true)}
+            >
+              Create Quiz
+            </Button>
+            {/* Modal To Create The the Quiz */}
+            <ModalWrapper openModal={openCreateQuizModal}>
+              <CreateQuizModal
+                openModal={openCreateQuizModal}
+                setOpenModal={setOpenCreateQuizModal}
+              />
+            </ModalWrapper>
+            <Button
+              variant="contained"
+              startIcon={<QuizIcon style={{ color: theme.palette.secondary.main }} />}
+              style={{
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.secondary.main,
+              }}
+              onClick={() => setOpenAttemptQuizModal(true)}
+            >
+              Take Quiz
+            </Button>
+            <ModalWrapper openModal={openAttemptQuizModal}>
+              <AttemptQuizModal
+                openModal={openAttemptQuizModal}
+                setOpenModal={setOpenAttemptQuizModal}
+              />
+            </ModalWrapper>
+            {isConnected &&
+              <Button
+                variant="contained"
+                startIcon={<Person4Icon style={{ color: theme.palette.secondary.main }} />}
+                style={{
+                  backgroundColor: theme.palette.primary.main,
+                  color: theme.palette.secondary.main,
+                  marginLeft: 10,
+                }}
+                onClick={() => router.push('/profile')}
+              >
+                Profile
+              </Button>
+            }
+          </Box>
+        </CardContent>
+      </Card>
+
+      {isConnected && <div style={{ marginTop: '4rem' }}>
         <Typography
           variant="h6"
           component="h6"
@@ -184,7 +146,7 @@ const Index = () => {
             ))}
           </Grid>
         )}
-      </div> }
+      </div>}
 
       <div style={{ marginTop: '4rem' }}>
         <Typography
