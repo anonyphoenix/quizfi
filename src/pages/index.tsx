@@ -1,6 +1,5 @@
 import AttemptQuizModal from '@/components/AttemptQuizModal';
 import CreateQuizModal from '@/components/CreateQuizModal';
-import WithdrawModal from '@/components/WithdrawModal';
 import ModalWrapper from '@/components/ModalWrapper';
 import QuizCard from '@/components/QuizCard';
 import useFetchQuizCards from '@/hooks/fetchQuizCards';
@@ -8,13 +7,10 @@ import { RootState } from '@/store/reducers';
 import AddIcon from '@mui/icons-material/Add';
 import QuizIcon from '@mui/icons-material/Quiz';
 import Person4Icon from '@mui/icons-material/Person4';
-import GradingIcon from '@mui/icons-material/Grading';
-import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import {
   Box,
   Button,
   CircularProgress,
-  Modal,
   Typography,
   Card,
   CardContent,
@@ -25,14 +21,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAccount } from 'wagmi';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 
 
 const Index = () => {
   const [openCreateQuizModal, setOpenCreateQuizModal] = useState(false);
   const [openAttemptQuizModal, setOpenAttemptQuizModal] = useState(false);
-  const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
-  const [balance, setBalance] = useState(0);
   const theme = useTheme();
   const { address, isConnecting, isConnected } = useAccount();
   // const quizzes = useSelector((state: RootState) => state.quizCards.quizzes);
@@ -43,24 +36,6 @@ const Index = () => {
 
   const isLoading = useFetchQuizCards(address, 0);
   const router = useRouter();
-
-  useEffect(() => {
-    async function fetchBalance() {
-      try {
-        const response = await axios.get(
-          `/api/get-balance?id=${address}`
-        );
-        const data = response.data;
-        setBalance(data.balance);
-      } catch (error) {
-      }
-    }
-    if (address) {
-      fetchBalance();
-    } else {
-      setBalance(0);
-    }
-  }, [isConnecting, isConnected, address]);
 
   return (
     <Box sx={{ my: 4, width: '100%' }}>
@@ -115,142 +90,118 @@ const Index = () => {
                 }}
                 onClick={() => router.push('/profile')}
               >
-                Profile
+                View Profile
               </Button>
             }
           </Box>
         </CardContent>
       </Card>
 
-      {isConnected && <div style={{ marginTop: '4rem' }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          align="left"
-          gutterBottom
-          fontWeight="bold"
-          mb={2}
-        >
-          Your Created Quizzes ({userQuizzes.length})
-        </Typography>
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {userQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id}>
-                <QuizCard quiz={quiz} index={index} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </div>}
 
-      <div style={{ marginTop: '4rem' }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          align="left"
-          gutterBottom
-          fontWeight="bold"
-          mb={2}
-        >
-          Ongoing Public Quizzes ({ongoingQuizzes.length})
-        </Typography>
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {ongoingQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id}>
-                <QuizCard quiz={quiz} index={index} />
+      {isConnected &&
+        <Card variant="outlined" sx={{ mb: 4, backgroundColor: '#E7DDD6' }}>
+          <CardContent>
+            <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="h5" gutterBottom>
+                Quizzes made by you ({userQuizzes.length})
+              </Typography>
+              <Button
+                variant="contained"
+                startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
+                style={{
+                  backgroundColor: theme.palette.primary.main,
+                  color: theme.palette.secondary.main,
+                  marginLeft: 10,
+                }}
+                onClick={() => setOpenCreateQuizModal(true)}
+              >
+                Create a new quiz
+              </Button>
+            </Box>
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <CircularProgress color="primary" />
+              </div>
+            ) : (
+              <Grid container spacing={2} columns={16}>
+                {userQuizzes.map((quiz: any, index: any) => (
+                  <Grid key={quiz.id} size={16}>
+                    <QuizCard quiz={quiz} index={index} />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        )}
-      </div>
+            )}
+          </CardContent>
+        </Card>}
 
-      <div style={{ marginTop: '4rem' }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          align="left"
-          gutterBottom
-          fontWeight="bold"
-          mb={2}
-        >
-          Upcoming Public Quizzes ({upcomingQuizzes.length})
-        </Typography>
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {upcomingQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id}>
-                <QuizCard quiz={quiz} index={index} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </div>
+      <Card variant="outlined" sx={{ mb: 4, backgroundColor: '#E7DDD6' }}>
+        <CardContent>
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h5" gutterBottom>
+              Ongoing Public Quizzes ({ongoingQuizzes.length})
+            </Typography>
+          </Box>
+          {isLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress color="primary" />
+            </div>
+          ) : (
+            <Grid container spacing={2} columns={16}>
+              {ongoingQuizzes.map((quiz: any, index: any) => (
+                <Grid key={quiz.id} size={16}>
+                  <QuizCard quiz={quiz} index={index} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </CardContent>
+      </Card>
 
-      <div style={{ marginTop: '4rem' }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          align="left"
-          gutterBottom
-          fontWeight="bold"
-          mb={2}
-        >
-          Finished Public Quizzes ({finishedQuizzes.length})
-        </Typography>
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {finishedQuizzes.map((quiz: any, index: any) => (
-              <Grid key={quiz.id}>
-                <QuizCard quiz={quiz} index={index} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </div>
+      <Card variant="outlined" sx={{ mb: 4, backgroundColor: '#E7DDD6' }}>
+        <CardContent>
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h5" gutterBottom>
+              Upcoming Public Quizzes ({upcomingQuizzes.length})
+            </Typography>
+          </Box>
+          {isLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress color="primary" />
+            </div>
+          ) : (
+            <Grid container spacing={2} columns={16}>
+              {upcomingQuizzes.map((quiz: any, index: any) => (
+                <Grid key={quiz.id} size={16}>
+                  <QuizCard quiz={quiz} index={index} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </CardContent>
+      </Card>
 
-      {/* <div style={{ marginTop: '4rem' }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          align="left"
-          gutterBottom
-          fontWeight="bold"
-          mb={2}
-        >
-          All Quizzes ({quizzes.length})
-        </Typography>
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <Grid container spacing={2} sx={{ justifyContent: 'start' }}>
-            {quizzes.map((quiz, index) => (
-              <Grid key={quiz.id} item>
-                <QuizCard quiz={quiz} index={index} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </div> */}
+      <Card variant="outlined" sx={{ mb: 4, backgroundColor: '#E7DDD6' }}>
+        <CardContent>
+          <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h5" gutterBottom>
+              Finished Public Quizzes ({finishedQuizzes.length})
+            </Typography>
+          </Box>
+          {isLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress color="primary" />
+            </div>
+          ) : (
+            <Grid container spacing={2} columns={16}>
+              {finishedQuizzes.map((quiz: any, index: any) => (
+                <Grid key={quiz.id} size={16}>
+                  <QuizCard quiz={quiz} index={index} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </CardContent>
+      </Card>
 
     </Box>
   );

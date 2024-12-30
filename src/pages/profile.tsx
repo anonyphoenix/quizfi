@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Card, CardHeader, CardContent, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useAccount } from 'wagmi';
 import { RootState } from '@/store/reducers';
@@ -11,12 +11,15 @@ import { useTheme } from '@mui/material/styles';
 import GradingIcon from '@mui/icons-material/Grading';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import AddIcon from '@mui/icons-material/Add';
+import ModalWrapper from '@/components/ModalWrapper';
+import WithdrawModal from '@/components/WithdrawModal';
 
 function Profile() {
     const router = useRouter();
     const theme = useTheme();
     const { address, isConnecting, isConnected } = useAccount();
     const [balance, setBalance] = useState(0);
+    const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
     const userQuizzes = useSelector((state: RootState) => state.quizCards.userQuizzes);
     // TODO: fetch userquizzes if state is empty
 
@@ -56,10 +59,16 @@ function Profile() {
                                     color: theme.palette.secondary.main,
                                     marginLeft: 10,
                                 }}
-                                onClick={() => router.push('/myresults')}
+                                onClick={() => setOpenWithdrawModal(true)}
                             >
                                 Withdraw
                             </Button>
+                            <ModalWrapper openModal={openWithdrawModal}>
+                                <WithdrawModal
+                                    openModal={openWithdrawModal}
+                                    setOpenModal={setOpenWithdrawModal}
+                                />
+                            </ModalWrapper>
                             <Button
                                 variant="contained"
                                 startIcon={<GradingIcon style={{ color: theme.palette.secondary.main }} />}
@@ -77,24 +86,24 @@ function Profile() {
                 </CardContent>
             </Card>
 
-            <Card variant="outlined" sx={{ mb: 4 , backgroundColor: '#E7DDD6'}}>
+            <Card variant="outlined" sx={{ mb: 4, backgroundColor: '#E7DDD6' }}>
                 <CardContent>
                     <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Typography variant="h5" gutterBottom>
                             Quizzes made by you
                         </Typography>
                         <Button
-                                variant="contained"
-                                startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
-                                style={{
-                                    backgroundColor: theme.palette.primary.main,
-                                    color: theme.palette.secondary.main,
-                                    marginLeft: 10,
-                                }}
-                                onClick={() => console.log("soon")}
-                            >
-                                Create a new quiz
-                            </Button>
+                            variant="contained"
+                            startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
+                            style={{
+                                backgroundColor: theme.palette.primary.main,
+                                color: theme.palette.secondary.main,
+                                marginLeft: 10,
+                            }}
+                            onClick={() => console.log("soon")}
+                        >
+                            Create a new quiz
+                        </Button>
                     </Box>
                     <Grid container spacing={2} columns={16}>
                         {userQuizzes.map((quiz: any, index: any) => (

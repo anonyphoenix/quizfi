@@ -22,6 +22,18 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import dayjs from 'dayjs';
+import {
+  TelegramShareButton,
+  TelegramIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  EmailShareButton,
+  EmailIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  LinkedinShareButton,
+  LinkedinIcon
+} from 'next-share'
 
 function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
   //hooks
@@ -89,88 +101,96 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           zIndex: '99',
         }}
       >
-        <IconButton sx={{ color: 'white' }} onClick={handleMenuOpen}>
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          disableScrollLock={true}
-          onClose={handleMenuClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          PaperProps={{
-            sx: {
-              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
-              backgroundColor: 'white',
-            },
-          }}
-        >
-              { quiz.startTime && quiz.timelimit && address == quiz.owner && 
-                  Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime())/1000)) > 0 &&
-            <MenuItem onClick={handleEdit}>
-            <IconButton
-              size="small"
-              sx={{ mr: 1, color: theme.palette.primary.dark }}
-            >
-              <Edit />
-            </IconButton>
-            <Typography variant="body1">Edit</Typography>
-            </MenuItem> }
-              { quiz.startTime && quiz.timelimit && address == quiz.owner && 
-                  Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime())/1000)) > 0 &&
-            <MenuItem onClick={handleDelete}>
-              <IconButton
-                size="small"
-                sx={{ mr: 1, color: theme.palette.primary.dark }}
-              >
-                <Delete />
-              </IconButton>
-              <Typography variant="body1">Delete</Typography>
-            </MenuItem> }
-              { quiz.startTime && quiz.timelimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
-                + (quiz.timelimit * 60000)).getTime() - new Date().getTime())/1000)) > 0 &&
-            <MenuItem onClick={() => router.push(`/startquiz/${quiz.id}`)}>
-              <IconButton
-                size="small"
-                sx={{ mr: 1, color: theme.palette.primary.dark }}
-              >
-                <QuestionAnswer />
-              </IconButton>
-              <Typography variant="body1">Take Quiz</Typography>
-            </MenuItem> }
-              { quiz.startTime && quiz.timelimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
-                + (quiz.timelimit * 60000)).getTime() - new Date().getTime())/1000)) < -30 &&
-            <MenuItem onClick={() => router.push(`/resultquiz/${quiz.id}`)}>
-              <IconButton
-                size="small"
-                sx={{ mr: 1, color: theme.palette.primary.dark }}
-              >
-                <Source />
-              </IconButton>
-              <Typography variant="body1">View Results</Typography>
-            </MenuItem>}
-            { address == quiz.owner &&
-            <MenuItem onClick={() => router.push(`/statquiz/${quiz.id}`)}>
-              <IconButton
-                size="small"
-                sx={{ mr: 1, color: theme.palette.primary.dark }}
-              >
-                <Assessment />
-              </IconButton>
-              <Typography variant="body1">Statistics</Typography>
-            </MenuItem> }
-            { quiz.startTime && new Date(quiz.startTime).getTime() < new Date().getTime() &&
-            <MenuItem onClick={() => router.push(`/api/export-quiz-by-id?id=${quiz.id}`)}>
-            <IconButton
-              size="small"
-              sx={{ mr: 1, color: theme.palette.primary.dark }}
-            >
-              <FileUpload />
-            </IconButton>
-            <Typography variant="body1">Export</Typography>
-          </MenuItem> }
-        </Menu>
+        <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: -0.3 }}>
+          <Chip
+            size="small"
+            label={quiz.status}
+            variant='outlined'
+            color="secondary" />
+          <IconButton sx={{ color: 'white' }} onClick={handleMenuOpen}>
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            disableScrollLock={true}
+            onClose={handleMenuClose}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            PaperProps={{
+              sx: {
+                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
+                backgroundColor: 'white',
+              },
+            }}
+          >
+            {quiz.startTime && quiz.timelimit && address == quiz.owner &&
+              Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
+              <MenuItem onClick={handleEdit}>
+                <IconButton
+                  size="small"
+                  sx={{ mr: 1, color: theme.palette.primary.dark }}
+                >
+                  <Edit />
+                </IconButton>
+                <Typography variant="body1">Edit</Typography>
+              </MenuItem>}
+            {quiz.startTime && quiz.timelimit && address == quiz.owner &&
+              Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
+              <MenuItem onClick={handleDelete}>
+                <IconButton
+                  size="small"
+                  sx={{ mr: 1, color: theme.palette.primary.dark }}
+                >
+                  <Delete />
+                </IconButton>
+                <Typography variant="body1">Delete</Typography>
+              </MenuItem>}
+            {quiz.startTime && quiz.timelimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
+              + (quiz.timelimit * 60000)).getTime() - new Date().getTime()) / 1000)) > 0 &&
+              <MenuItem onClick={() => router.push(`/startquiz/${quiz.id}`)}>
+                <IconButton
+                  size="small"
+                  sx={{ mr: 1, color: theme.palette.primary.dark }}
+                >
+                  <QuestionAnswer />
+                </IconButton>
+                <Typography variant="body1">Take Quiz</Typography>
+              </MenuItem>}
+            {quiz.startTime && quiz.timelimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
+              + (quiz.timelimit * 60000)).getTime() - new Date().getTime()) / 1000)) < -30 &&
+              <MenuItem onClick={() => router.push(`/resultquiz/${quiz.id}`)}>
+                <IconButton
+                  size="small"
+                  sx={{ mr: 1, color: theme.palette.primary.dark }}
+                >
+                  <Source />
+                </IconButton>
+                <Typography variant="body1">View Results</Typography>
+              </MenuItem>}
+            {address == quiz.owner &&
+              <MenuItem onClick={() => router.push(`/statquiz/${quiz.id}`)}>
+                <IconButton
+                  size="small"
+                  sx={{ mr: 1, color: theme.palette.primary.dark }}
+                >
+                  <Assessment />
+                </IconButton>
+                <Typography variant="body1">Statistics</Typography>
+              </MenuItem>}
+            {quiz.startTime && new Date(quiz.startTime).getTime() < new Date().getTime() &&
+              <MenuItem onClick={() => router.push(`/api/export-quiz-by-id?id=${quiz.id}`)}>
+                <IconButton
+                  size="small"
+                  sx={{ mr: 1, color: theme.palette.primary.dark }}
+                >
+                  <FileUpload />
+                </IconButton>
+                <Typography variant="body1">Export</Typography>
+              </MenuItem>}
+          </Menu>
+        </Stack>
+
       </Box>
       {/* ============ */}
 
@@ -190,6 +210,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
             textAlign="left"
             variant="body1"
             color={theme.palette.secondary.main}
+            sx={{ pr: 9 }}
           >
             #{index + 1} {quiz.title}
           </Typography>
@@ -201,17 +222,17 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           }}
         >
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Typography gutterBottom variant="h5" component="div">
-            Prize
+            <Typography gutterBottom variant="h5" component="div">
+              Prize
+            </Typography>
+            <Typography gutterBottom variant="h6" component="div">
+              {quiz.prizeAmount} EDU
+            </Typography>
+          </Stack>
+          <Typography color="text.secondary" variant="body2">
+            {quiz.description}
           </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {quiz.prizeAmount} EDU
-          </Typography>
-        </Stack>
-        <Typography color="text.secondary" variant="body2">
-          { quiz.description }
-        </Typography>
-        < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
+          < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
           <Typography align="left" variant="body2">
             {quiz.startTime && (
               <>
@@ -221,19 +242,55 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
             )}
           </Typography>
           < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
-          { address == quiz.owner &&
-          <Typography align="left" variant="body2">
-            {quiz.updatedAt && (
-              <>
-                Updated at{' '}
-                {dayjs(quiz.updatedAt).format('YYYY/MM/DD hh:mm:ss A')}
-              </>
-            )}
-          </Typography> }
-          { address == quiz.owner &&
-          < Divider sx={{ marginTop: 1, marginBottom: 1 }} /> }
-          <Stack direction="row" spacing={1}>
-            <Chip label={quiz.status} size="small" />
+          {address == quiz.owner &&
+            <Typography align="left" variant="body2">
+              {quiz.updatedAt && (
+                <>
+                  Updated at{' '}
+                  {dayjs(quiz.updatedAt).format('YYYY/MM/DD hh:mm:ss A')}
+                </>
+              )}
+            </Typography>}
+          {address == quiz.owner &&
+            < Divider sx={{ marginTop: 1, marginBottom: 1 }} />}
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography variant="body2">Share:</Typography>
+            <TelegramShareButton
+              style={{ paddingTop: '4px' }}
+              url={`${window.location.origin}/startquiz/${quiz.id}`}
+              title={quiz.title}
+            >
+              <TelegramIcon size={28} round />
+            </TelegramShareButton>
+            <TwitterShareButton
+              style={{ paddingTop: '4px' }}
+              url={`${window.location.origin}/startquiz/${quiz.id}`}
+              title={quiz.title}
+            >
+              <TwitterIcon size={28} round />
+            </TwitterShareButton>
+            <EmailShareButton
+              style={{ paddingTop: '4px' }}
+              url={`${window.location.origin}/startquiz/${quiz.id}`}
+              subject={quiz.title}
+              body={`${quiz.title}: ${window.location.origin}/startquiz/${quiz.id}`}
+            >
+              <EmailIcon size={28} round />
+            </EmailShareButton>
+            <WhatsappShareButton
+              style={{ paddingTop: '4px' }}
+              url={`${window.location.origin}/startquiz/${quiz.id}`}
+              title={quiz.title}
+              separator='::'
+            >
+              <WhatsappIcon size={28} round />
+            </WhatsappShareButton>
+            <LinkedinShareButton
+              style={{ paddingTop: '4px' }}
+              url={`${window.location.origin}/startquiz/${quiz.id}`}
+            >
+              <LinkedinIcon size={28} round />
+            </LinkedinShareButton>
           </Stack>
         </Box>
       </Link>
