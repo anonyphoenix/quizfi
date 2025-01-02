@@ -21,8 +21,8 @@ export default async function handler(
 
     const quizToExport = JSON.parse(JSON.stringify(quiz));
 
-    if (new Date(quiz.startTime).getTime() > new Date().getTime()){
-      res.status(403).json({ message: `This quiz has not started yet` });
+    if (new Date(quiz.endTime).getTime() > new Date().getTime()){
+      res.status(403).json({ message: `This quiz has not ended yet` });
       return;
     }
 

@@ -17,12 +17,13 @@ export default async function handler(
     }
     if (
       req.body.questions.some(
-        (question: any) => !question.options || question.options.length === 0
+        (question: any) => !question.options || question.options.length === 0 ||
+          question.options.every((option: any) => option.isAnswer === false)
       )
     ) {
       res
         .status(400)
-        .json({ message: 'All questions must have at least one option' });
+        .json({ message: 'All questions must have at least one correct option' });
       return;
     }
 
