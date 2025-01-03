@@ -124,7 +124,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
               },
             }}
           >
-            {quiz.startTime && quiz.timelimit && address == quiz.owner &&
+            {quiz.startTime && quiz.timeLimit && address == quiz.owner &&
               Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
               <MenuItem onClick={handleEdit}>
                 <IconButton
@@ -135,7 +135,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 </IconButton>
                 <Typography variant="body1">Edit</Typography>
               </MenuItem>}
-            {quiz.startTime && quiz.timelimit && address == quiz.owner &&
+            {quiz.startTime && quiz.timeLimit && address == quiz.owner &&
               Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
               <MenuItem onClick={handleDelete}>
                 <IconButton
@@ -146,8 +146,8 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 </IconButton>
                 <Typography variant="body1">Delete</Typography>
               </MenuItem>}
-            {quiz.startTime && quiz.timelimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
-              + (quiz.timelimit * 60000)).getTime() - new Date().getTime()) / 1000)) > 0 &&
+            {quiz.startTime && quiz.timeLimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
+              + (quiz.timeLimit * 60000)).getTime() - new Date().getTime()) / 1000)) > 0 &&
               <MenuItem onClick={() => router.push(`/startquiz/${quiz.id}`)}>
                 <IconButton
                   size="small"
@@ -157,8 +157,8 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 </IconButton>
                 <Typography variant="body1">Take Quiz</Typography>
               </MenuItem>}
-            {quiz.startTime && quiz.timelimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
-              + (quiz.timelimit * 60000)).getTime() - new Date().getTime()) / 1000)) < -30 &&
+            {quiz.startTime && quiz.timeLimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
+              + (quiz.timeLimit * 60000)).getTime() - new Date().getTime()) / 1000)) < -30 &&
               <MenuItem onClick={() => router.push(`/resultquiz/${quiz.id}`)}>
                 <IconButton
                   size="small"

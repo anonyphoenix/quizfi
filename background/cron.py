@@ -15,7 +15,7 @@ try:
     quizzes = quiz.find(query)
 
     for quiz in quizzes:
-        if datetime.timedelta(minutes=quiz.timelimit) + datetime.datetime.fromisoformat(quiz.startTime) \
+        if datetime.timedelta(minutes=quiz.timeLimit) + datetime.datetime.fromisoformat(quiz.startTime) \
             < datetime.datetime.now():
             # process winners
             results = result.find({ 'quizId': quiz.id }).sort({ 'score': -1 })

@@ -49,7 +49,7 @@ export default async function handler(
     }
 
     let endTime = new Date(req.body.startTime);
-    endTime.setTime(endTime.getTime() + req.body.timelimit * 60000);
+    endTime.setTime(endTime.getTime() + req.body.timeLimit * 60000);
     endTime = new Date(endTime);
 
     const updatedQuizData: any = {

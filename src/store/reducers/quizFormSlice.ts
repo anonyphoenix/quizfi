@@ -45,10 +45,11 @@ const initialState: QuizState = {
     title: 'Untitled Quiz',
     description: 'Enter description',
     questions: [],
-    timelimit: 10,
+    timeLimit: 10,
     status: 'private',
     prizeAmount: 0,
     startTime: new Date(),
+    endTime: new Date(new Date().getTime() + 600000),
     prizeProcessed: false
   },
 };
@@ -79,7 +80,7 @@ const quizSlice = createSlice({
     },
     updateQuizTimeLimit(state, action: PayloadAction<number>) {
       if (state.quiz) {
-        state.quiz.timelimit = action.payload;
+        state.quiz.timeLimit = action.payload;
       }
     },
     updateQuizPrizeAmount(state, action: PayloadAction<number>) {

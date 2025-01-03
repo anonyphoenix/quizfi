@@ -52,7 +52,7 @@ function EditQuiz() {
   const router = useRouter();
   const dispatch = useDispatch();
   const quiz = useSelector((state: RootState) => state.quizform.quiz);
-  const [timeLimit, setTimeLimit] = useState<number>(quiz.timelimit);
+  const [timeLimit, setTimeLimit] = useState<number>(quiz.timeLimit);
   const [status, setStatus] = useState(false);
   // to autofocus the last element
   const [lastAddedIndex, setLastAddedIndex] = useState(-1);
@@ -197,7 +197,7 @@ function EditQuiz() {
             &nbsp;&nbsp;&nbsp;
             <EditableNumber
               defaultValue={10}
-              number={quiz.timelimit}
+              number={quiz.timeLimit}
               onChange={(value: number) => {
                 dispatch(updateQuizTimeLimit(value));
               }}

@@ -31,7 +31,7 @@ export default async function handler(
       id: quiz.id,
       description: quiz.description,
       title: quiz.title,
-      timelimit: quiz.timelimit,
+      timeLimit: quiz.timeLimit,
       points: totalPoints,
       startTime: quiz.startTime
     };

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 function QuizTimer() {
   const minutes : number = useSelector(
-    (state: RootState) => state.quizTestData.quiz.timelimit
+    (state: RootState) => state.quizTestData.quiz.timeLimit
   );
   const startTime : Date = useSelector(
     (state: RootState) => state.quizTestData.quiz.startTime

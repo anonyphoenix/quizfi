@@ -35,7 +35,7 @@ export default async function handler(
           },
         ],
         updatedAt: new Date(),
-        timelimit: 10,
+        timeLimit: 10,
         owner: req.body.owner,
         status: 'private',
         startTime: new Date(),

@@ -13,8 +13,9 @@ const initialState: QuizState = {
     title: 'Untitled Quiz',
     description: 'enter description',
     questions: [],
-    timelimit: 10,
+    timeLimit: 10,
     startTime: new Date(),
+    endTime: new Date(new Date().getTime() + 600000),
     prizeAmount: 0
   },
   currentQuestion: null,

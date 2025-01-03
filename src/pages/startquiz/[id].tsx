@@ -24,14 +24,14 @@ function StartQuiz() {
     title: '',
     description: '',
     points: 1,
-    timelimit: 0,
+    timeLimit: 0,
     startTime: new Date()
   });
 
   const id = router.query.id;
 
   const checkIfUpcoming = () => {
-    if (quizData && quizData.startTime && quizData.timelimit) {
+    if (quizData && quizData.startTime && quizData.timeLimit) {
       if (new Date(quizData.startTime) > new Date()){
         setIsUpcoming(true);
       }
@@ -39,17 +39,17 @@ function StartQuiz() {
   };
   
   const checkIfFinished = () => {
-    if (quizData && quizData.startTime && quizData.timelimit) {
-      if (new Date(quizData.startTime) < new Date(new Date().getTime() - quizData.timelimit*60000)){
+    if (quizData && quizData.startTime && quizData.timeLimit) {
+      if (new Date(quizData.startTime) < new Date(new Date().getTime() - quizData.timeLimit*60000)){
         setIsFinished(true);
       }
     }
   };
   
   const handleStartQuiz = () => {
-    if (quizData && quizData.startTime && quizData.timelimit) {
+    if (quizData && quizData.startTime && quizData.timeLimit) {
       if (new Date(quizData.startTime) < new Date() &&
-       new Date() < new Date(new Date(quizData.startTime).getTime() + quizData.timelimit*60000)){
+       new Date() < new Date(new Date(quizData.startTime).getTime() + quizData.timeLimit*60000)){
         setStart(true);
       }
     }
@@ -132,7 +132,7 @@ function StartQuiz() {
                   <Box fontWeight="bold" component="span">
                     Time Limit:
                   </Box>{' '}
-                  {quizData.timelimit} minutes
+                  {quizData.timeLimit} minutes
                 </Typography>
                 <Typography variant="body1" textAlign="left">
                   <Box fontWeight="bold" component="span">
@@ -149,7 +149,7 @@ function StartQuiz() {
                   - Once you press Start Quiz, the quiz will begin.
                 </Typography>
                 <Typography variant="body1" color="red" textAlign="left">
-                  - You will have {quizData.timelimit} minutes to complete the
+                  - You will have {quizData.timeLimit} minutes to complete the
                   quiz.
                 </Typography>
                 <Typography variant="body1" color="red" textAlign="left">
