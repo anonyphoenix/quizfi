@@ -7,6 +7,7 @@ import {
   addOption,
   removeQuestion,
   updateQuestionPoints,
+  updateQuestionDirection,
   updateQuestionPrompt,
   updateQuestionImages
 } from '@/store/reducers/quizFormSlice';
@@ -25,6 +26,8 @@ import {
   ImageListItem,
   Tooltip,
   Typography,
+  FormControlLabel,
+  Switch
 } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,10 +36,12 @@ import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import React from 'react';
 
+
 interface Props {
   question: QuestionType;
   index: number;
   autofocus?: boolean;
+  rtl?: boolean;
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -51,11 +56,12 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function Question({ question, index, autofocus }: Props) {
+function Question({ question, index, autofocus, rtl=false }: Props) {
   const dispatch = useDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   const [uploadProgress, setUploadProgress] = React.useState(0);
+  const [isRTL, setIsRTL] = React.useState(rtl);
 
   const questions = useSelector(
     (state: RootState) => state.quizform.quiz.questions
@@ -109,6 +115,15 @@ function Question({ question, index, autofocus }: Props) {
     dispatch(addOption({ questionId: question.id, option: newOption }));
   };
 
+  const changeRTLHandler = () => {
+    const newState = !isRTL;
+    setIsRTL(newState);
+    dispatch(updateQuestionDirection({
+      questionId: question.id,
+      rtl: newState
+    }));
+  };
+
   return (
     <Card
       ref={autofocus ? cardRef : null}
@@ -129,6 +144,7 @@ function Question({ question, index, autofocus }: Props) {
             {`${index}.`}
           </Typography>
           <EditableText
+            rtl={isRTL}
             defaultValue=""
             text={question.prompt}
             onChange={(text: string) =>
@@ -180,7 +196,7 @@ function Question({ question, index, autofocus }: Props) {
           </Box>}
 
         {question.options?.map((option) => (
-          <Option key={option.id} option={option} questionId={question.id} />
+          <Option rtl={isRTL} key={option.id} option={option} questionId={question.id} />
         ))}
 
         <Box sx={{ ml: 2 }}>
@@ -214,6 +230,11 @@ function Question({ question, index, autofocus }: Props) {
               fontSize={'24px'}
               label={'Points'}
             />
+
+            <FormControlLabel
+            onChange={changeRTLHandler}
+            control={isRTL? <Switch defaultChecked/> : <Switch />}
+            label="RTL" />
 
             <Tooltip title="Delete question">
               <IconButton onClick={removeQuestionHandler}>

@@ -15,7 +15,6 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import QuizTimer from './QuizTimer';
 import { useAccount } from 'wagmi';
-import { NoBackpackSharp } from '@mui/icons-material';
 
 const Navbar = () => {
   const theme = useTheme();

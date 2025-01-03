@@ -272,6 +272,7 @@ function EditQuiz() {
             index={index + 1}
             question={question}
             autofocus={index == lastAddedIndex}
+            rtl={question.rtl}
           />
         ))}
 

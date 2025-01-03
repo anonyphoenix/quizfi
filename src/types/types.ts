@@ -10,6 +10,7 @@ export interface QuestionType {
   images: string[];
   points: number;
   options: OptionType[];
+  rtl?: boolean;
 }
 
 export interface QuizType {
@@ -27,5 +28,4 @@ export interface QuizType {
   prizeAmount: number;
   prizeLogic?: string;
   prizeProcessed?: boolean;
-  rtl?: boolean;
 }

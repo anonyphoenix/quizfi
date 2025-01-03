@@ -16,9 +16,11 @@ import EditableText from './EditableText';
 function Option({
   option,
   questionId,
+  rtl
 }: {
   option: OptionType;
   questionId: string;
+  rtl?: boolean;
 }) {
   const dispatch = useDispatch();
 
@@ -64,6 +66,7 @@ function Option({
       </Grid>
       <Grid sx={{ flexGrow: 1 }}>
         <EditableText
+          rtl={rtl}
           key={option.id}
           fontSize={'16px'}
           text={option.title}

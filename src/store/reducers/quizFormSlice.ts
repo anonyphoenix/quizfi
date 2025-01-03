@@ -146,6 +146,19 @@ const quizSlice = createSlice({
         }
       }
     },
+    updateQuestionDirection(
+      state,
+      action: PayloadAction<{ questionId: string; rtl: boolean }>
+    ) {
+      if (state.quiz) {
+        const question = state.quiz.questions.find(
+          (q) => q.id === action.payload.questionId
+        );
+        if (question) {
+          question.rtl = action.payload.rtl;
+        }
+      }
+    },
     updateOptionTitle(
       state,
       action: PayloadAction<{
@@ -239,6 +252,7 @@ export const {
   updateQuizStatus,
   updateQuizStartTime,
   updateQuestionPoints,
+  updateQuestionDirection,
   updateQuestionImages,
   updateOptionTitle,
   updateOptionIsAnswer,

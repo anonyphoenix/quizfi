@@ -1,10 +1,11 @@
 import { TextField } from '@mui/material';
-import { useState } from 'react';
+
 interface EditableTextProps {
   text: string;
   fontSize: string;
   bold?: boolean;
   autoFocus?: boolean;
+  rtl?: boolean;
   onChange: (...args: any[]) => any;
   defaultValue: string;
 }
@@ -15,6 +16,7 @@ function EditableText({
   defaultValue,
   bold,
   autoFocus = false,
+  rtl = false,
   onChange,
 }: EditableTextProps) {
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +34,7 @@ function EditableText({
       multiline
       variant="standard"
       sx={{
+        direction: rtl ? 'rtl' : 'ltr',
         border: 'none',
         borderRadius: 0,
         '& .MuiOutlinedInput-root': {
