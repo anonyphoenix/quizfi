@@ -93,9 +93,9 @@ function QuizTaker() {
       </Typography>
 
       {currentQuestion && (
-        <Card sx={{ p: 4 }}>
+        <Card sx={{ p: 4, direction: currentQuestion.rtl ? 'rtl' : 'ltr' }}>
           <CardContent>
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="body1" sx={{ fontWeight: 'bold', direction: 'ltr' }}>
               Question {questionIndex}/{quiz.questions.length}
             </Typography>
             <Typography variant="body1" sx={{ ml: 0 }}>
@@ -107,7 +107,7 @@ function QuizTaker() {
               {currentQuestion.images.map((imgSrc, index) => (<p key={index}><img alt={`${index}`} style={{"width": "100%"}} src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc}/></p>))}
             </div> }
 
-            <Typography variant="body2" sx={{ mt: 2 }}>
+            <Typography variant="body2" sx={{ mt: 2, direction: 'ltr' }}>
               {points} {points > 1 ? 'points' : 'point'}
             </Typography>
 
@@ -128,7 +128,7 @@ function QuizTaker() {
               </RadioGroup>
             </FormControl>
           </CardContent>
-          <CardActions sx={{ justifyContent: 'flex-end' }}>
+          <CardActions sx={{ justifyContent: 'flex-end', direction: 'ltr' }}>
             <Typography variant="body2" sx={{ mr: 2 }}>
               {totalQuestionsAttempted} out of {quiz.questions.length} questions
               attempted
