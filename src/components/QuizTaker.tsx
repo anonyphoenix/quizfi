@@ -17,17 +17,19 @@ import {
   CardActions,
   CardContent,
   CircularProgress,
-  Divider,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import QuizTimer from './QuizTimer';
 function QuizTaker() {
+  const theme = useTheme();
   const router = useRouter();
   const quiz = useSelector((state: RootState) => state.quizTestData.quiz);
   const id = router.query.id as string;
@@ -78,6 +80,10 @@ function QuizTaker() {
     dispatch(moveNext());
   };
 
+  const submitQuiz = async () => {
+    router.push('/result');
+  };
+
   if (isLoading) {
     return (
       <Box mt={4} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -88,6 +94,32 @@ function QuizTaker() {
 
   return (
     <Box sx={{ mt: 4, width: '100%' }}>
+
+      <Card sx={{ mb: 4, backgroundColor: '#fff' }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <QuizTimer/>
+            <Box>
+            <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.secondary.main,
+                  }}
+                  onClick={() => submitQuiz()}
+                >
+                  <Typography
+                    variant="button"
+                    color={theme.palette.secondary.main}
+                  >
+                    Submit Quiz
+                  </Typography>
+                </Button>
+            </Box>
+          </Box>
+        </CardContent>
+      </Card>
+
       <Typography variant="h4" gutterBottom>
         Quiz Title — {quiz.title}
       </Typography>
@@ -102,10 +134,10 @@ function QuizTaker() {
               {currentQuestion.prompt}
             </Typography>
 
-            { currentQuestion.images && 
-            <div style={{"paddingTop":"10px"}}>
-              {currentQuestion.images.map((imgSrc, index) => (<p key={index}><img alt={`${index}`} style={{"width": "100%"}} src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc}/></p>))}
-            </div> }
+            {currentQuestion.images &&
+              <div style={{ "paddingTop": "10px" }}>
+                {currentQuestion.images.map((imgSrc, index) => (<p key={index}><img alt={`${index}`} style={{ "width": "100%" }} src={process.env.NEXT_PUBLIC_IMAGE_HOST_URL + imgSrc} /></p>))}
+              </div>}
 
             <Typography variant="body2" sx={{ mt: 2, direction: 'ltr' }}>
               {points} {points > 1 ? 'points' : 'point'}

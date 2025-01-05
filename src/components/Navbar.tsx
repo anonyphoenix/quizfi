@@ -79,10 +79,6 @@ const Navbar = () => {
     }
   };
 
-  const submitQuiz = async () => {
-    router.push('/result');
-  };
-
   return (
     <AppBar position="fixed" sx={{ zIndex: '999' }}>
       <Toolbar>
@@ -115,30 +111,8 @@ const Navbar = () => {
                 </Typography>
               </Button>
             )}
+          </Grid>
 
-            {currentPath === 'quiz_take' && (
-              <>
-                <Button
-                  variant="contained"
-                  style={{
-                    backgroundColor: theme.palette.secondary.main,
-                    color: theme.palette.primary.main,
-                  }}
-                  onClick={() => submitQuiz()}
-                >
-                  <Typography
-                    variant="button"
-                    color={theme.palette.primary.main}
-                  >
-                    Submit Quiz
-                  </Typography>
-                </Button>
-              </>
-            )}
-          </Grid>
-          <Grid offset="auto">
-            {currentPath === 'quiz_take' && <QuizTimer></QuizTimer>}
-          </Grid>
           <Grid offset="auto">
           <w3m-button />
           </Grid>

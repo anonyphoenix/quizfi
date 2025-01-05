@@ -178,9 +178,10 @@ function StartQuiz() {
         </Card>
       </Box>
     );
+  } else {
+    return <QuizTaker />;
   }
-
-  return <QuizTaker />;
+  
 }
 
 export default StartQuiz;
