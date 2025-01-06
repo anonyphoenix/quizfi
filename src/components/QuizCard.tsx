@@ -34,6 +34,7 @@ import {
   LinkedinShareButton,
   LinkedinIcon
 } from 'next-share'
+import QuizStatusTime from './QuizStatusTime';
 
 function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
   //hooks
@@ -234,10 +235,11 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           </Typography>
           < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
           <Typography align="left" variant="body2">
-            {quiz.startTime && (
+            {quiz.startTime && quiz.endTime && (
               <>
-                Starts at{' '}
-                {dayjs(quiz.startTime).format('YYYY/MM/DD hh:mm:ss A')}
+                <QuizStatusTime
+                  startTime={new Date(quiz.startTime)}
+                  endTime={new Date(quiz.endTime)}/>
               </>
             )}
           </Typography>
