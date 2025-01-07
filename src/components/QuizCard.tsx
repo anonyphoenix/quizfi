@@ -179,7 +179,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
                 </IconButton>
                 <Typography variant="body1">Statistics</Typography>
               </MenuItem>}
-            {quiz.startTime && new Date(quiz.startTime).getTime() < new Date().getTime() &&
+            {quiz.endTime && new Date(quiz.endTime).getTime() < new Date().getTime() &&
               <MenuItem onClick={() => router.push(`/api/export-quiz-by-id?id=${quiz.id}`)}>
                 <IconButton
                   size="small"

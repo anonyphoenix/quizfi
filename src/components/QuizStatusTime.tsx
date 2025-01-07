@@ -6,7 +6,19 @@ import { format } from 'timeago.js';
 function QuizStatusTime({ startTime, endTime }: any) {
 
   const router = useRouter();
-  const [quizStatusTime, setQuizStatusTime] = useState<string>("");
+
+  let initalStatusTime = "..."
+
+  if (startTime > new Date()) {
+    initalStatusTime = "Starts " + format(startTime, 'en_US');
+  } else if (endTime > new Date()) {
+    initalStatusTime = "Ends " + format(endTime, 'en_US');
+  } else {
+    initalStatusTime = "Ended " + format(endTime, 'en_US');
+  }
+
+  const [quizStatusTime, setQuizStatusTime] = useState<string>(initalStatusTime);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
