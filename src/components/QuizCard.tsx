@@ -90,7 +90,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
         borderRadius: '4px',
         position: 'relative',
         overflow: 'hidden',
-        border: '2px solid transparent',
+        //border: '2px solid transparent',
       }}
     >
       {/* <Box> */}

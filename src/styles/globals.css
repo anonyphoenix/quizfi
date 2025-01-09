@@ -101,9 +101,14 @@ a {
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 } */
 
+.quiz-card-parent {
+  filter: drop-shadow(0px 0px 0px #333);
+  transition: filter 200ms ease-in 0ms;
+}
+
 .quiz-card-parent:hover {
-  border: 2px solid #c7b7e3;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  filter: drop-shadow(0px 0px 3px #333);
+  transition: filter 200ms ease-out 0ms;
 }
 
 .no-scroll {

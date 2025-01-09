@@ -33,17 +33,13 @@ export default function MyApp(props: MyAppProps) {
 
   const router = useRouter();
 
-  const [bgColor, setBgColor] = useState('#fff');
+  // const [bgColor, setBgColor] = useState('#fff');
 
 
   useEffect(() => {
     const handleRouteChange = () => {
-      const path = router.pathname;
-      if (true) { //path === '/' || path === '/profile') {
-        document.body.style.backgroundColor = '#E7DDD6';
-      } else {
-        document.body.style.backgroundColor = '#f0f0f0';
-      }
+      // const path = router.pathname;
+      document.body.style.backgroundColor = '#E1DEDC';
     };
     handleRouteChange(); // initial route
   }, [router.pathname]);
@@ -63,8 +59,6 @@ export default function MyApp(props: MyAppProps) {
         </Head>
         <Web3ModalProvider>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon.
-        remove the margins of all browsers and apply the material design background color */}
           <CssBaseline />
           <GlobalNotification />
           <Navbar />

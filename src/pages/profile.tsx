@@ -86,7 +86,7 @@ function Profile() {
                 </CardContent>
             </Card>
 
-            <Card variant="outlined" sx={{ mb: 4, backgroundColor: '#E7DDD6' }}>
+            <Card variant="outlined" sx={{ mb: 4, backgroundColor: 'transparent' }}>
                 <CardContent>
                     <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Typography variant="h5" gutterBottom>
