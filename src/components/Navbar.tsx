@@ -1,3 +1,5 @@
+'use client'
+
 import { RootState } from '@/store/reducers';
 import { addNotification } from '@/store/reducers/notificationSlice';
 import {
@@ -13,8 +15,11 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import QuizTimer from './QuizTimer';
 import { useAccount } from 'wagmi';
+
+import { useEffect } from 'react';
+import OCLoginButton from '@/components/OCLoginButton';
+import { useOCAuth } from '@opencampus/ocid-connect-js';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -30,6 +35,17 @@ const Navbar = () => {
     addr = '0x0';
   }
 
+  const { authState, ocAuth, OCId, ethAddress } = useOCAuth();
+
+  // if (authState.error) {
+  //   return <div>Error: {authState.error.message}</div>;
+  // }
+
+  // Add a loading state
+  // if (authState.isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
   const saveQuiz = async () => {
     try {
       // call the API method with updated quiz data
@@ -39,12 +55,12 @@ const Navbar = () => {
           message: 'Saving quiz...',
         })
       );
-      if (addr == '0x0' || addr == updatedQuiz.owner){
+      if (addr == '0x0' || addr == updatedQuiz.owner) {
         const response = await axios.put(
           `/api/update-quiz-by-id?id=${id}`,
           updatedQuiz
         );
-        if (response.status == 200){
+        if (response.status == 200) {
           dispatch(
             addNotification({
               type: 'success',
@@ -58,9 +74,9 @@ const Navbar = () => {
             type: 'error',
             message: 'Permission denied',
           })
-        ); 
+        );
       }
-    } catch (error : any) {
+    } catch (error: any) {
       try {
         dispatch(
           addNotification({
@@ -114,8 +130,15 @@ const Navbar = () => {
           </Grid>
 
           <Grid offset="auto">
-          <w3m-button />
+            {/* {authState.isAuthenticated ? ( */}
+            {authState && authState.isAuthenticated ? (
+              <p>You are logged in! {JSON.stringify(ocAuth.getAuthState())}</p>
+
+            ) : (
+              <OCLoginButton />
+            )}
           </Grid>
+          <w3m-button />
         </Grid>
       </Toolbar>
     </AppBar>

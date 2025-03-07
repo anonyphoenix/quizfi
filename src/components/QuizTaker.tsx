@@ -185,6 +185,32 @@ function QuizTaker() {
           </CardActions>
         </Card>
       )}
+
+<Card sx={{ mb: 4, backgroundColor: '#fff' }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <QuizTimer/>
+            <Box>
+            <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.secondary.main,
+                  }}
+                  onClick={() => submitQuiz()}
+                >
+                  <Typography
+                    variant="button"
+                    color={theme.palette.secondary.main}
+                  >
+                    Submit Quiz
+                  </Typography>
+                </Button>
+            </Box>
+          </Box>
+        </CardContent>
+      </Card>
+      
     </Box>
   );
 }

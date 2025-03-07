@@ -20,6 +20,7 @@ import { cookieToInitialState } from 'wagmi';
 
 import { config } from '@/config'; */
 import Web3ModalProvider from '@/context';
+import OCConnectWrapper from '@/components/OCConnectWrapper';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -33,6 +34,11 @@ export default function MyApp(props: MyAppProps) {
 
   const router = useRouter();
 
+  const opts = {
+    redirectUri: 'https://quizfi.click/ocredirect', // Adjust this URL
+    referralCode: 'QUIZFI', // Assign partner code
+  };
+
   // const [bgColor, setBgColor] = useState('#fff');
 
 
@@ -44,12 +50,12 @@ export default function MyApp(props: MyAppProps) {
     handleRouteChange(); // initial route
   }, [router.pathname]);
 
-/*   useEffect(() => {
-    const fetchData = async () => {
-      const initState = cookieToInitialState(config, headers().get('cookie'));
-    };
-    fetchData();
-  }); */
+  /*   useEffect(() => {
+      const fetchData = async () => {
+        const initState = cookieToInitialState(config, headers().get('cookie'));
+      };
+      fetchData();
+    }); */
 
   return (
     <Provider store={store}>
@@ -57,25 +63,27 @@ export default function MyApp(props: MyAppProps) {
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
-        <Web3ModalProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <GlobalNotification />
-          <Navbar />
+        <OCConnectWrapper opts={opts} sandboxMode={false}>
+          <Web3ModalProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <GlobalNotification />
+              <Navbar />
 
-          <Container
-            maxWidth="md"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              my: 8,
-            }}
-          >
-            <Component {...pageProps} />
-          </Container>
-        </ThemeProvider>
-        </Web3ModalProvider>
+              <Container
+                maxWidth="md"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  my: 8,
+                }}
+              >
+                <Component {...pageProps} />
+              </Container>
+            </ThemeProvider>
+          </Web3ModalProvider>
+        </OCConnectWrapper>
       </CacheProvider>
     </Provider>
   );

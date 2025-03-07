@@ -45,8 +45,9 @@ Quiz takers can get a quiz report when the quiz time is over.
 4. Run a static files server to serve quiz images.
 5. Get a project ID from [Reown](https://reown.com) for wallet connection.
 6. Create a file named `.env.local` and fill it according to the information in the next section.
-7. Run `pnpm run dev` to start the development server.
-8. Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
+7. Compile and deploy the smart contract in `hardhat`. 
+8. Run `pnpm run dev` to start the development server.
+9. Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
 
 ## .env.local Sample Content
