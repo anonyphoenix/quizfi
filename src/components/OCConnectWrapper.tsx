@@ -1,13 +1,17 @@
 'use client'
-
+import { FC, ReactNode } from 'react';
 import { OCConnect } from '@opencampus/ocid-connect-js';
 
-
-
-export default function OCConnectWrapper({ children, opts, sandboxMode }: any) {
-  return (
-    <OCConnect opts={opts} sandboxMode={sandboxMode}>
-      {children}
-    </OCConnect>
-  );
+interface OCIDProviderProps {
+  children: ReactNode;
+  opts: any;
+  sandboxMode: boolean;
 }
+
+const OCConnectWrapper: FC<OCIDProviderProps> = ({ children, opts, sandboxMode }) => (
+  <OCConnect opts={opts} sandboxMode={sandboxMode}>
+    {children}
+  </OCConnect>
+);
+
+export default OCConnectWrapper;

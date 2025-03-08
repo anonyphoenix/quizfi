@@ -35,8 +35,8 @@ export default function MyApp(props: MyAppProps) {
   const router = useRouter();
 
   const opts = {
-    redirectUri: 'https://quizfi.click/ocredirect', // Adjust this URL
-    referralCode: 'QUIZFI', // Assign partner code
+    redirectUri: 'http://127.0.0.1:3000/ocredirect',
+    referralCode: 'QUIZFI',
   };
 
   // const [bgColor, setBgColor] = useState('#fff');
@@ -58,12 +58,13 @@ export default function MyApp(props: MyAppProps) {
     }); */
 
   return (
+    <OCConnectWrapper opts={opts} sandboxMode={false}>
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
-        <OCConnectWrapper opts={opts} sandboxMode={false}>
+        
           <Web3ModalProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
@@ -83,8 +84,8 @@ export default function MyApp(props: MyAppProps) {
               </Container>
             </ThemeProvider>
           </Web3ModalProvider>
-        </OCConnectWrapper>
       </CacheProvider>
     </Provider>
+    </OCConnectWrapper>
   );
 }

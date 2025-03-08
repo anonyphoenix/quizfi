@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAccount } from 'wagmi';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import OCLoginButton from '@/components/OCLoginButton';
 import { useOCAuth } from '@opencampus/ocid-connect-js';
 
@@ -27,6 +27,7 @@ const Navbar = () => {
   const { id } = router.query;
   const updatedQuiz = useSelector((state: RootState) => state.quizform.quiz);
   const dispatch = useDispatch();
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const currentPath = useSelector(
     (state: RootState) => state.currentPath.currentPath
   );
@@ -35,7 +36,8 @@ const Navbar = () => {
     addr = '0x0';
   }
 
-  const { authState, ocAuth, OCId, ethAddress } = useOCAuth();
+  const {isInitialized, authState, ocAuth} = useOCAuth();
+  // const { authState, ocAuth, OCId, ethAddress } = useOCAuth();
 
   // if (authState.error) {
   //   return <div>Error: {authState.error.message}</div>;
@@ -45,6 +47,18 @@ const Navbar = () => {
   // if (authState.isLoading) {
   //   return <div>Loading...</div>;
   // }
+
+  // useEffect(() => {
+  //   if (isInitialized && authState.isAuthenticated) {
+  //       setLoggedIn(true);
+  //   }
+  // }, [isInitialized]);
+
+  const handleLogin = async () => {
+    await ocAuth.signInWithRedirect({
+      state: "opencampus",
+    });
+  };
 
   const saveQuiz = async () => {
     try {
@@ -131,11 +145,11 @@ const Navbar = () => {
 
           <Grid offset="auto">
             {/* {authState.isAuthenticated ? ( */}
-            {authState && authState.isAuthenticated ? (
-              <p>You are logged in! {JSON.stringify(ocAuth.getAuthState())}</p>
-
+            { loggedIn ? (
+              <p>You are logged in!</p>
+              // {JSON.stringify(ocAuth.getAuthState())}
             ) : (
-              <OCLoginButton />
+              <OCLoginButton  onClick={handleLogin}>Connect OCID</OCLoginButton>
             )}
           </Grid>
           <w3m-button />

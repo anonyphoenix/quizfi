@@ -1,54 +1,38 @@
-'use client'
-
-import { LoginCallBack, useOCAuth } from '@opencampus/ocid-connect-js';
-import { useRouter } from 'next/navigation';
+'use client';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useOCAuth } from '@opencampus/ocid-connect-js';
 
-export default function RedirectPage() {
+const RedirectPage = () => {
   const router = useRouter();
-
-  const { authState, ocAuth, OCId, ethAddress } = useOCAuth();
+  const { isAuthenticated, authState, ocAuth } = useOCAuth();
 
   const loginSuccess = () => {
-    router.push('/'); // Redirect after successful login
+    router.push('/user'); // Redirect to user or any other page
   };
 
-  const loginError = (error: any) => {
-    console.error('Login error:', error);
+  const loginError = () => {
+    router.push('/'); // Redirect to login page or show error message
   };
 
-  function CustomErrorComponent() {
-    const { authState } = useOCAuth();
-    return <div>Error Logging in: {authState.error?.message}</div>;
-  }
-
-  function CustomLoadingComponent() {
-    useEffect(() => {
-      async function handleAuth() {
-        try {
-          const authState = await ocAuth.handleLoginRedirect();
-          if (authState.idToken) {
-            console.log("C"); // login process is completed
-          } else {
-            console.log("N"); // login process is not completed
-          }
-        } catch (e) {
-          console.log(e);
-        }
+  useEffect(() => {
+    const handleAuth = async () => {
+      try {
+        await ocAuth.handleLoginRedirect();
+        loginSuccess();
+      } catch (error) {
+        loginError();
       }
-  
-      handleAuth();
-    }, []);
-  
-    return <div>Loading....</div>;
+    };
+
+    handleAuth();
+  }, [ocAuth]);
+
+  if (isAuthenticated && authState.error) {
+    return <div>Error Logging in: {authState.error.message}</div>;
   }
 
-  return (
-    <LoginCallBack 
-      errorCallback={loginError} 
-      successCallback={loginSuccess}
-      customErrorComponent={<CustomErrorComponent />}
-      customLoadingComponent={<CustomLoadingComponent />} 
-    />
-  );
-}
+  return <div>Loading...</div>;
+};
+
+export default RedirectPage;
