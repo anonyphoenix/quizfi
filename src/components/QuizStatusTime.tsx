@@ -35,11 +35,15 @@ function QuizStatusTime({ startTime, endTime }: any) {
   }, [quizStatusTime, router]);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Typography variant="h6" fontWeight="bold" suppressHydrationWarning>
-        {quizStatusTime}
-      </Typography>
-    </Box>
+    // <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    //   <Typography 
+    //   variant="h6"
+    //   fontWeight="bold"
+    //   suppressHydrationWarning>
+    //     {quizStatusTime}
+    //   </Typography>
+    // </Box>
+    <span>{quizStatusTime}</span>
   );
 }
 

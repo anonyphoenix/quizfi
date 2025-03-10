@@ -4,17 +4,30 @@ import {
   AppBar,
   Box,
   Button,
+  IconButton,
   Toolbar,
   Typography,
-  useTheme,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Person4Icon from '@mui/icons-material/Person4';
+import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import QuizTimer from './QuizTimer';
+import { styled, useTheme } from '@mui/material/styles';
 import { useAccount } from 'wagmi';
+import * as React from 'react';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -29,22 +42,68 @@ const Navbar = () => {
   if (!addr) {
     addr = '0x0';
   }
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const drawerWidth = 240;
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+
+  };
+
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    [theme.breakpoints.up('lg')]: {
+      display: 'none',
+    },
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }));
+
+  const drawer = (
+    <div>
+      <DrawerHeader>
+        <IconButton onClick={handleDrawerToggle}>
+          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Person4Icon />
+              </ListItemIcon>
+              <ListItemText primary={'View Profile'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <AddIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Create Quiz'} />
+            </ListItemButton>
+          </ListItem>
+      </List>
+    </div>
+  );
 
   const saveQuiz = async () => {
     try {
-      // call the API method with updated quiz data
       dispatch(
         addNotification({
           type: 'info',
           message: 'Saving quiz...',
         })
       );
-      if (addr == '0x0' || addr == updatedQuiz.owner){
+      if (addr == '0x0' || addr == updatedQuiz.owner) {
         const response = await axios.put(
           `/api/update-quiz-by-id?id=${id}`,
           updatedQuiz
         );
-        if (response.status == 200){
+        if (response.status == 200) {
           dispatch(
             addNotification({
               type: 'success',
@@ -58,9 +117,9 @@ const Navbar = () => {
             type: 'error',
             message: 'Permission denied',
           })
-        ); 
+        );
       }
-    } catch (error : any) {
+    } catch (error: any) {
       try {
         dispatch(
           addNotification({
@@ -80,45 +139,89 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ zIndex: '999' }}>
-      <Toolbar>
-        <Grid
-          container
-          spacing={3}
-          sx={{ flexGrow: 1 }}
-        >
-          <Grid>
-            <Link href="/">
-              <Box>
-                <Typography variant="h6" component="div">
-                  QuizFi
-                </Typography>
-              </Box>
-            </Link>
-          </Grid>
-          <Grid>
-            {currentPath === 'quiz_edit' && (
-              <Button
-                variant="contained"
-                style={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.primary.main,
-                }}
-                onClick={() => saveQuiz()}
+    <Box sx={{ display: 'flex' }}>
+      <AppBar position="fixed" sx={{
+        zIndex: '999',
+        width: { lg: `calc(100% - ${drawerWidth}px)` },
+        ml: { lg: `${drawerWidth}px` },
+      }}>
+        <Toolbar>
+          <Grid
+            container
+            spacing={3}
+            sx={{ flexGrow: 1, alignItems: 'center' }}
+          >
+            <Grid>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ display: { lg: 'none' } }}
               >
-                <Typography variant="button" color={theme.palette.primary.main}>
-                  Save Quiz
-                </Typography>
-              </Button>
-            )}
-          </Grid>
+                <MenuIcon />
+              </IconButton>
+            </Grid>
+            <Grid sx={{ ml: -2 }}>
+              <Link href="/">
+                <Box>
+                  <Typography variant="h6" component="div">
+                    QuizFi
+                  </Typography>
+                </Box>
+              </Link>
+            </Grid>
+            <Grid>
+              {currentPath === 'quiz_edit' && (
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.primary.main,
+                  }}
+                  onClick={() => saveQuiz()}
+                >
+                  <Typography variant="button" color={theme.palette.primary.main}>
+                    Save Quiz
+                  </Typography>
+                </Button>
+              )}
+            </Grid>
 
-          <Grid offset="auto">
-          <w3m-button />
+            <Grid offset="auto">
+              <w3m-button label='Login' />
+            </Grid>
           </Grid>
-        </Grid>
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          sx={{
+            display: { xs: 'block', lg: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', lg: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+    </Box>
   );
 };
 

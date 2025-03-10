@@ -2,7 +2,7 @@ import GlobalNotification from '@/components/GlobalNotification';
 import Navbar from '@/components/Navbar';
 import '@/styles/globals.css';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppProps } from 'next/app';
@@ -39,7 +39,7 @@ export default function MyApp(props: MyAppProps) {
   useEffect(() => {
     const handleRouteChange = () => {
       // const path = router.pathname;
-      document.body.style.backgroundColor = '#E1DEDC';
+      document.body.style.backgroundColor = '#E9E9E9';
     };
     handleRouteChange(); // initial route
   }, [router.pathname]);
@@ -61,8 +61,8 @@ export default function MyApp(props: MyAppProps) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <GlobalNotification />
+          <Box sx={{ display: 'flex'}}>
           <Navbar />
-
           <Container
             maxWidth="md"
             sx={{
@@ -70,10 +70,12 @@ export default function MyApp(props: MyAppProps) {
               flexDirection: 'column',
               alignItems: 'center',
               my: 8,
+              flexGrow: 1
             }}
           >
             <Component {...pageProps} />
           </Container>
+          </Box>
         </ThemeProvider>
         </Web3ModalProvider>
       </CacheProvider>

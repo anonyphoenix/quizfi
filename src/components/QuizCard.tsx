@@ -4,8 +4,11 @@ import { QuizType } from '@/types/types';
 import { QuestionAnswer, Delete, Edit, Assessment, FileUpload, Source } from '@mui/icons-material';
 import { default as MoreVertIcon } from '@mui/icons-material/MoreVert';
 import {
+  Avatar,
   Box,
+  Button,
   Card,
+  CardHeader,
   IconButton,
   Menu,
   MenuItem,
@@ -21,7 +24,8 @@ import { useAccount } from 'wagmi';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import dayjs from 'dayjs';
+import Grid from '@mui/material/Grid2';
+import QuizIcon from '@mui/icons-material/Quiz';
 import {
   TelegramShareButton,
   TelegramIcon,
@@ -40,14 +44,17 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
   //hooks
   const theme = useTheme();
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const router = useRouter();
   const { address } = useAccount();
 
   //hooks
   //handlers
-  const handleMenuOpen = (event: any) => {
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+    console.log(event);
+    console.log(event.currentTarget);
+    console.log(event.target);
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -82,7 +89,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
     // Edit the quiz
     router.push(`/editquiz/${quiz.id}`);
   };
-  //handlers
+
   return (
     <Card
       className="quiz-card-parent"
@@ -93,8 +100,22 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
         //border: '2px solid transparent',
       }}
     >
+       <CardHeader
+        action={<Stack direction="row" spacing={1} alignItems="center" sx={{ mt: -0.3 }}>
+        <Chip
+          size="small"
+          label={quiz.status}
+          variant='outlined'
+          color="primary" />
+        <IconButton sx={{ color: 'gray' }} onClick={handleMenuOpen}>
+          <MoreVertIcon />
+        </IconButton>
+        
+      </Stack>}
+        title={quiz.title}
+      />
       {/* <Box> */}
-      <Box
+      {/* <Box
         sx={{
           position: 'absolute',
           right: '0',
@@ -192,7 +213,86 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           </Menu>
         </Stack>
 
-      </Box>
+      </Box> */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        disableScrollLock={true}
+        onClose={handleMenuClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        PaperProps={{
+          sx: {
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
+            backgroundColor: 'white',
+          }
+        }}
+      >
+        {quiz.startTime && quiz.timeLimit && address == quiz.owner &&
+          Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
+          <MenuItem onClick={handleEdit}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <Edit />
+            </IconButton>
+            <Typography variant="body1">Edit</Typography>
+          </MenuItem>}
+        {quiz.startTime && quiz.timeLimit && address == quiz.owner &&
+          Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
+          <MenuItem onClick={handleDelete}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <Delete />
+            </IconButton>
+            <Typography variant="body1">Delete</Typography>
+          </MenuItem>}
+        {quiz.startTime && quiz.timeLimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
+          + (quiz.timeLimit * 60000)).getTime() - new Date().getTime()) / 1000)) > 0 &&
+          <MenuItem onClick={() => router.push(`/startquiz/${quiz.id}`)}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <QuestionAnswer />
+            </IconButton>
+            <Typography variant="body1">Take Quiz</Typography>
+          </MenuItem>}
+        {quiz.startTime && quiz.timeLimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
+          + (quiz.timeLimit * 60000)).getTime() - new Date().getTime()) / 1000)) < -30 &&
+          <MenuItem onClick={() => router.push(`/resultquiz/${quiz.id}`)}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <Source />
+            </IconButton>
+            <Typography variant="body1">View Results</Typography>
+          </MenuItem>}
+        {address == quiz.owner &&
+          <MenuItem onClick={() => router.push(`/statquiz/${quiz.id}`)}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <Assessment />
+            </IconButton>
+            <Typography variant="body1">Statistics</Typography>
+          </MenuItem>}
+        {quiz.endTime && new Date(quiz.endTime).getTime() < new Date().getTime() &&
+          <MenuItem onClick={() => router.push(`/api/export-quiz-by-id?id=${quiz.id}`)}>
+            <IconButton
+              size="small"
+              sx={{ mr: 1, color: theme.palette.primary.dark }}
+            >
+              <FileUpload />
+            </IconButton>
+            <Typography variant="body1">Export</Typography>
+          </MenuItem>}
+      </Menu>
       {/* ============ */}
 
       <Link href={address == quiz.owner ? `/editquiz/${quiz.id}` : `/startquiz/${quiz.id}`}>
@@ -213,7 +313,14 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
             color={theme.palette.secondary.main}
             sx={{ pr: 9 }}
           >
-            #{index + 1} {quiz.title}
+            {/* #{index + 1} */}
+            {quiz.startTime && quiz.endTime && (
+          <>
+            <QuizStatusTime
+              startTime={new Date(quiz.startTime)}
+              endTime={new Date(quiz.endTime)}/>
+          </>
+        )}
           </Typography>
         </Box>
         <Box
@@ -233,17 +340,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           <Typography color="text.secondary" variant="body2">
             {quiz.description}
           </Typography>
-          < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
-          <Typography align="left" variant="body2">
-            {quiz.startTime && quiz.endTime && (
-              <>
-                <QuizStatusTime
-                  startTime={new Date(quiz.startTime)}
-                  endTime={new Date(quiz.endTime)}/>
-              </>
-            )}
-          </Typography>
-          < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
+          {/* < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
           {address == quiz.owner &&
             <Typography align="left" variant="body2">
               {quiz.updatedAt && (
@@ -254,9 +351,11 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
               )}
             </Typography>}
           {address == quiz.owner &&
-            < Divider sx={{ marginTop: 1, marginBottom: 1 }} />}
+            < Divider sx={{ marginTop: 1, marginBottom: 1 }} />} */}
+            < Divider sx={{ marginTop: 1, marginBottom: 1 }} />
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Stack direction="row" spacing={1} alignItems="center">
-            <Typography variant="body2">Share:</Typography>
+            {/* <Typography variant="body2">Share:</Typography> */}
             <TelegramShareButton
               style={{ paddingTop: '4px' }}
               url={`${window.location.origin}/startquiz/${quiz.id}`}
@@ -293,6 +392,17 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
             >
               <LinkedinIcon size={28} round />
             </LinkedinShareButton>
+          </Stack>
+          <Button
+              variant="contained"
+              style={{
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.secondary.main,
+              }}
+              onClick={() => {}}
+            >
+              Start
+            </Button>
           </Stack>
         </Box>
       </Link>
