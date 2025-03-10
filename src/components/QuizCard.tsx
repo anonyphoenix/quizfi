@@ -114,106 +114,8 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
       </Stack>}
         title={quiz.title}
       />
-      {/* <Box> */}
-      {/* <Box
-        sx={{
-          position: 'absolute',
-          right: '0',
-          top: '0',
-          zIndex: '99',
-        }}
-      >
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: -0.3 }}>
-          <Chip
-            size="small"
-            label={quiz.status}
-            variant='outlined'
-            color="secondary" />
-          <IconButton sx={{ color: 'white' }} onClick={handleMenuOpen}>
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            disableScrollLock={true}
-            onClose={handleMenuClose}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            PaperProps={{
-              sx: {
-                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
-                backgroundColor: 'white',
-              },
-            }}
-          >
-            {quiz.startTime && quiz.timeLimit && address == quiz.owner &&
-              Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
-              <MenuItem onClick={handleEdit}>
-                <IconButton
-                  size="small"
-                  sx={{ mr: 1, color: theme.palette.primary.dark }}
-                >
-                  <Edit />
-                </IconButton>
-                <Typography variant="body1">Edit</Typography>
-              </MenuItem>}
-            {quiz.startTime && quiz.timeLimit && address == quiz.owner &&
-              Math.floor(((new Date(quiz.startTime).getTime() - new Date().getTime()) / 1000)) > 0 &&
-              <MenuItem onClick={handleDelete}>
-                <IconButton
-                  size="small"
-                  sx={{ mr: 1, color: theme.palette.primary.dark }}
-                >
-                  <Delete />
-                </IconButton>
-                <Typography variant="body1">Delete</Typography>
-              </MenuItem>}
-            {quiz.startTime && quiz.timeLimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
-              + (quiz.timeLimit * 60000)).getTime() - new Date().getTime()) / 1000)) > 0 &&
-              <MenuItem onClick={() => router.push(`/startquiz/${quiz.id}`)}>
-                <IconButton
-                  size="small"
-                  sx={{ mr: 1, color: theme.palette.primary.dark }}
-                >
-                  <QuestionAnswer />
-                </IconButton>
-                <Typography variant="body1">Take Quiz</Typography>
-              </MenuItem>}
-            {quiz.startTime && quiz.timeLimit && Math.floor(((new Date(new Date(quiz.startTime).getTime()
-              + (quiz.timeLimit * 60000)).getTime() - new Date().getTime()) / 1000)) < -30 &&
-              <MenuItem onClick={() => router.push(`/resultquiz/${quiz.id}`)}>
-                <IconButton
-                  size="small"
-                  sx={{ mr: 1, color: theme.palette.primary.dark }}
-                >
-                  <Source />
-                </IconButton>
-                <Typography variant="body1">View Results</Typography>
-              </MenuItem>}
-            {address == quiz.owner &&
-              <MenuItem onClick={() => router.push(`/statquiz/${quiz.id}`)}>
-                <IconButton
-                  size="small"
-                  sx={{ mr: 1, color: theme.palette.primary.dark }}
-                >
-                  <Assessment />
-                </IconButton>
-                <Typography variant="body1">Statistics</Typography>
-              </MenuItem>}
-            {quiz.endTime && new Date(quiz.endTime).getTime() < new Date().getTime() &&
-              <MenuItem onClick={() => router.push(`/api/export-quiz-by-id?id=${quiz.id}`)}>
-                <IconButton
-                  size="small"
-                  sx={{ mr: 1, color: theme.palette.primary.dark }}
-                >
-                  <FileUpload />
-                </IconButton>
-                <Typography variant="body1">Export</Typography>
-              </MenuItem>}
-          </Menu>
-        </Stack>
 
-      </Box> */}
+
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -396,7 +298,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           <Button
               variant="contained"
               style={{
-                backgroundColor: theme.palette.primary.main,
+                backgroundColor: theme.palette.highlight.main,
                 color: theme.palette.secondary.main,
               }}
               onClick={() => {}}

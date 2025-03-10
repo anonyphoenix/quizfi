@@ -39,7 +39,7 @@ export default function MyApp(props: MyAppProps) {
   useEffect(() => {
     const handleRouteChange = () => {
       // const path = router.pathname;
-      document.body.style.backgroundColor = '#E9E9E9';
+      document.body.style.backgroundColor = '#F5F5F5';
     };
     handleRouteChange(); // initial route
   }, [router.pathname]);

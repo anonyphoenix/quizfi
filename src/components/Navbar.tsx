@@ -2,6 +2,7 @@ import { RootState } from '@/store/reducers';
 import { addNotification } from '@/store/reducers/notificationSlice';
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   IconButton,
@@ -14,6 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Person4Icon from '@mui/icons-material/Person4';
 import AddIcon from '@mui/icons-material/Add';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,6 +30,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { useAppKit } from '@reown/appkit/react'
 
 const Navbar = () => {
   const theme = useTheme();
@@ -35,9 +38,11 @@ const Navbar = () => {
   const { id } = router.query;
   const updatedQuiz = useSelector((state: RootState) => state.quizform.quiz);
   const dispatch = useDispatch();
+  const { open: openAppKit, close: closeAppKit } = useAppKit();
   const currentPath = useSelector(
     (state: RootState) => state.currentPath.currentPath
   );
+  const { address, isConnecting, isConnected } = useAccount();
   let addr = useAccount().address;
   if (!addr) {
     addr = '0x0';
@@ -52,9 +57,9 @@ const Navbar = () => {
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
-    },
+    //[theme.breakpoints.up('lg')]: {
+     // display: 'none',
+    //},
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
@@ -70,22 +75,22 @@ const Navbar = () => {
       </DrawerHeader>
       <Divider />
       <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Person4Icon />
-              </ListItemIcon>
-              <ListItemText primary={'View Profile'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Create Quiz'} />
-            </ListItemButton>
-          </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <Person4Icon />
+            </ListItemIcon>
+            <ListItemText primary={'View Profile'} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Create Quiz'} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );
@@ -142,8 +147,9 @@ const Navbar = () => {
     <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" sx={{
         zIndex: '999',
-        width: { lg: `calc(100% - ${drawerWidth}px)` },
-        ml: { lg: `${drawerWidth}px` },
+        boxShadow: 'none',
+        //width: { lg: `calc(100% - ${drawerWidth}px)` },
+        //ml: { lg: `${drawerWidth}px` },
       }}>
         <Toolbar>
           <Grid
@@ -189,15 +195,34 @@ const Navbar = () => {
             </Grid>
 
             <Grid offset="auto">
-              <w3m-button label='Login' />
+              {!isConnected &&
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: theme.palette.highlight.main,
+                    color: theme.palette.secondary.main,
+                  }}
+                  onClick={() => openAppKit()}
+                >
+                  <Typography variant="button" color={theme.palette.secondary.main}>
+                    Login
+                  </Typography>
+                </Button>}
+              {isConnected &&
+                  <Avatar
+                   onClick={() => openAppKit()}
+                   sx={{ bgcolor: theme.palette.highlight.main, cursor: 'pointer' }}>
+                    <AccountBalanceWalletIcon />
+                  </Avatar>
+              }
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
-        aria-label="mailbox folders"
+        sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 }, zIndex: '100' }}
+        aria-label="navigation drawer"
       >
         <Drawer
           variant="temporary"

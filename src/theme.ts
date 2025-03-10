@@ -17,6 +17,11 @@ const theme = createTheme({
     },
     secondary: {
       main: '#FFF',
+      dark: '#FFF'
+    },
+    highlight: {
+      main: '#FF9933',
+      dark: '#FFA500'
     },
     error: {
       main: red.A400,
