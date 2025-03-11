@@ -44,9 +44,11 @@ function Profile() {
     return (
         <Box sx={{ my: 4, width: '100%' }}>
 
-            <Card sx={{ mb: 4, backgroundColor: '#f0f0f0' }}>
+            <Card sx={{ mb: 4, backgroundColor: theme.palette.secondary.main }}>
                 <CardContent>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex',
+                         justifyContent: 'space-between',
+                          alignItems: 'center' }}>
                         <Typography variant="h5">
                             Prize balance: {balance} EDU
                         </Typography>
@@ -55,7 +57,7 @@ function Profile() {
                                 variant="contained"
                                 startIcon={<PriceCheckIcon style={{ color: theme.palette.secondary.main }} />}
                                 style={{
-                                    backgroundColor: theme.palette.primary.main,
+                                    backgroundColor: theme.palette.primary.contrastText,
                                     color: theme.palette.secondary.main,
                                     marginLeft: 10,
                                 }}
@@ -73,7 +75,7 @@ function Profile() {
                                 variant="contained"
                                 startIcon={<GradingIcon style={{ color: theme.palette.secondary.main }} />}
                                 style={{
-                                    backgroundColor: theme.palette.primary.main,
+                                    backgroundColor: theme.palette.primary.contrastText,
                                     color: theme.palette.secondary.main,
                                     marginLeft: 10,
                                 }}
@@ -92,18 +94,18 @@ function Profile() {
                         <Typography variant="h5" gutterBottom>
                             Quizzes made by you
                         </Typography>
-                        <Button
+                        {/* <Button
                             variant="contained"
                             startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
                             style={{
-                                backgroundColor: theme.palette.primary.main,
+                                backgroundColor: theme.palette.primary.contrastText,
                                 color: theme.palette.secondary.main,
                                 marginLeft: 10,
                             }}
                             onClick={() => console.log("soon")}
                         >
                             Create a new quiz
-                        </Button>
+                        </Button> */}
                     </Box>
                     <Grid container spacing={2} columns={16}>
                         {userQuizzes.map((quiz: any, index: any) => (

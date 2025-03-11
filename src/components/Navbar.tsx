@@ -30,7 +30,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { useAppKit } from '@reown/appkit/react'
+import { useAppKit } from '@reown/appkit/react';
+import CreateQuizModal from '@/components/CreateQuizModal';
+import { useEffect, useState } from 'react';
+import ModalWrapper from '@/components/ModalWrapper';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -39,6 +42,7 @@ const Navbar = () => {
   const updatedQuiz = useSelector((state: RootState) => state.quizform.quiz);
   const dispatch = useDispatch();
   const { open: openAppKit, close: closeAppKit } = useAppKit();
+  const [openCreateQuizModal, setOpenCreateQuizModal] = useState(false);
   const currentPath = useSelector(
     (state: RootState) => state.currentPath.currentPath
   );
@@ -76,7 +80,7 @@ const Navbar = () => {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => router.push('/profile')}>
             <ListItemIcon>
               <Person4Icon />
             </ListItemIcon>
@@ -84,7 +88,7 @@ const Navbar = () => {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => setOpenCreateQuizModal(true)}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
@@ -171,7 +175,10 @@ const Navbar = () => {
             <Grid sx={{ ml: -2 }}>
               <Link href="/">
                 <Box>
-                  <Typography variant="h6" component="div">
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color={theme.palette.secondary.main}>
                     QuizFi
                   </Typography>
                 </Box>
@@ -199,7 +206,7 @@ const Navbar = () => {
                 <Button
                   variant="contained"
                   style={{
-                    backgroundColor: theme.palette.highlight.main,
+                    backgroundColor: theme.palette.primary.contrastText,
                     color: theme.palette.secondary.main,
                   }}
                   onClick={() => openAppKit()}
@@ -211,7 +218,7 @@ const Navbar = () => {
               {isConnected &&
                   <Avatar
                    onClick={() => openAppKit()}
-                   sx={{ bgcolor: theme.palette.highlight.main, cursor: 'pointer' }}>
+                   sx={{ bgcolor: theme.palette.primary.contrastText, cursor: 'pointer' }}>
                     <AccountBalanceWalletIcon />
                   </Avatar>
               }
@@ -219,6 +226,12 @@ const Navbar = () => {
           </Grid>
         </Toolbar>
       </AppBar>
+      <ModalWrapper openModal={openCreateQuizModal}>
+                    <CreateQuizModal
+                      openModal={openCreateQuizModal}
+                      setOpenModal={setOpenCreateQuizModal}
+                    />
+                  </ModalWrapper>
       <Box
         component="nav"
         sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 }, zIndex: '100' }}

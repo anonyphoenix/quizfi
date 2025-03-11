@@ -32,9 +32,9 @@ import {
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
 
 
 interface Props {
@@ -59,7 +59,7 @@ const VisuallyHiddenInput = styled('input')({
 function Question({ question, index, autofocus, rtl=false }: Props) {
   const dispatch = useDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
-
+  const theme = useTheme();
   const [uploadProgress, setUploadProgress] = React.useState(0);
   const [isRTL, setIsRTL] = React.useState(rtl);
 
@@ -166,7 +166,8 @@ function Question({ question, index, autofocus, rtl=false }: Props) {
               "maxWidth": "fit-content",
               "whiteSpace": "nowrap",
               "marginLeft": "3%",
-              "marginBottom": "1%"
+              "marginBottom": "1%",
+              color: theme.palette.secondary.main
             }}
             startIcon={<AddPhotoAlternateIcon />}
             component="label"

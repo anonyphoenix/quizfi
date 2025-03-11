@@ -14,14 +14,11 @@ const theme = createTheme({
     primary: {
       main: '#0088CC',
       dark: '#000',
+      contrastText: '#FF9933'
     },
     secondary: {
       main: '#FFF',
       dark: '#FFF'
-    },
-    highlight: {
-      main: '#FF9933',
-      dark: '#FFA500'
     },
     error: {
       main: red.A400,

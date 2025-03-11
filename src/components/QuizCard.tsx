@@ -298,7 +298,7 @@ function QuizCard({ quiz, index }: { quiz: Partial<QuizType>; index: number }) {
           <Button
               variant="contained"
               style={{
-                backgroundColor: theme.palette.highlight.main,
+                backgroundColor: theme.palette.primary.contrastText,
                 color: theme.palette.secondary.main,
               }}
               onClick={() => {}}

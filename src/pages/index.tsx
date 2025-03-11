@@ -48,7 +48,7 @@ const Index = () => {
               startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
               sx={{ mr: 1 }}
               style={{
-                backgroundColor: theme.palette.highlight.main,
+                backgroundColor: theme.palette.primary.contrastText,
                 color: theme.palette.secondary.main,
               }}
               onClick={() => setOpenCreateQuizModal(true)}
@@ -66,7 +66,7 @@ const Index = () => {
               variant="contained"
               startIcon={<QuizIcon style={{ color: theme.palette.secondary.main }} />}
               style={{
-                backgroundColor: theme.palette.highlight.main,
+                backgroundColor: theme.palette.primary.contrastText,
                 color: theme.palette.secondary.main,
               }}
               onClick={() => setOpenAttemptQuizModal(true)}
@@ -84,7 +84,7 @@ const Index = () => {
                 variant="contained"
                 startIcon={<Person4Icon style={{ color: theme.palette.secondary.main }} />}
                 style={{
-                  backgroundColor: theme.palette.highlight.main,
+                  backgroundColor: theme.palette.primary.contrastText,
                   color: theme.palette.secondary.main,
                   marginLeft: 10,
                 }}
@@ -109,7 +109,7 @@ const Index = () => {
                 variant="contained"
                 startIcon={<AddIcon style={{ color: theme.palette.secondary.main }} />}
                 style={{
-                  backgroundColor: theme.palette.highlight.main,
+                  backgroundColor: theme.palette.primary.contrastText,
                   color: theme.palette.secondary.main,
                   marginLeft: 10,
                 }}

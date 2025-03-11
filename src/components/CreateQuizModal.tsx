@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
+import { useTheme } from '@mui/material/styles';
 
 type CreateQuizModalProps = {
   openModal: boolean;
@@ -20,6 +21,7 @@ const CreateQuizModal: FC<CreateQuizModalProps> = ({
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
+  const theme = useTheme();
   let addr = useAccount().address;
   if (!addr) {
     addr = '0x0';
@@ -102,7 +104,11 @@ const CreateQuizModal: FC<CreateQuizModalProps> = ({
             variant="contained"
             sx={{ ml: 1 }}
           >
-            <Typography variant="button"> Cancel</Typography>
+            <Typography
+              variant="button"
+              color={theme.palette.secondary.main}>
+            Cancel
+            </Typography>
           </Button>
           <Button
             onClick={addQuiz}
@@ -111,7 +117,11 @@ const CreateQuizModal: FC<CreateQuizModalProps> = ({
             disabled={createButtonDisabled}
             sx={{ ml: 1 }}
           >
-            <Typography variant="button">Create</Typography>
+            <Typography
+              variant="button"
+              color={theme.palette.secondary.main}>
+            Create
+              </Typography>
           </Button>
         </Box>
         {loading && (

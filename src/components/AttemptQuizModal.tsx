@@ -218,7 +218,9 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
                 variant="contained"
                 sx={{ ml: 1 }}
               >
-                <Typography variant="button">Cancel</Typography>
+                <Typography 
+                variant="button"
+                color={theme.palette.secondary.main}>Cancel</Typography>
               </Button>
               <Button
                 color="primary"
@@ -226,7 +228,9 @@ const AttemptQuizModal: FC<AttemptQuizModalProps> = ({
                 sx={{ ml: 1 }}
                 onClick={() => setSelectedQuizId(quizId)}
               >
-                <Typography variant="button">Take</Typography>
+                <Typography
+                variant="button"
+                color={theme.palette.secondary.main}>Take</Typography>
               </Button>
             </Box>
             <Typography

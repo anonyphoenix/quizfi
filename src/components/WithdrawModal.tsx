@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { FC, useState } from 'react';
 import { useAccount } from 'wagmi';
+import { useTheme } from '@mui/material/styles';
 
 type WithdrawalModalProps = {
   openModal: boolean;
@@ -16,6 +17,7 @@ const WithdrawModal: FC<WithdrawalModalProps> = ({
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
+  const theme = useTheme();
   let addr = useAccount().address;
   if (!addr) {
     addr = '0x0';
@@ -86,7 +88,8 @@ const WithdrawModal: FC<WithdrawalModalProps> = ({
             variant="contained"
             sx={{ ml: 1 }}
           >
-            <Typography variant="button">Cancel</Typography>
+            <Typography variant="button"
+            color={theme.palette.secondary.main}>Cancel</Typography>
           </Button>
           <Button
             onClick={requestWithdrawal}
@@ -94,7 +97,9 @@ const WithdrawModal: FC<WithdrawalModalProps> = ({
             variant="contained"
             sx={{ ml: 1 }}
           >
-            <Typography variant="button">Withdraw</Typography>
+            <Typography
+            variant="button"
+            color={theme.palette.secondary.main}>Withdraw</Typography>
           </Button>
         </Box>
         {loading && (
