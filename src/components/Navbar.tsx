@@ -34,6 +34,8 @@ import { useAppKit } from '@reown/appkit/react';
 import CreateQuizModal from '@/components/CreateQuizModal';
 import { useEffect, useState } from 'react';
 import ModalWrapper from '@/components/ModalWrapper';
+import { useOCAuth } from '@opencampus/ocid-connect-js';
+import OCLoginButton from './OCLoginButton';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -47,6 +49,7 @@ const Navbar = () => {
     (state: RootState) => state.currentPath.currentPath
   );
   const { address, isConnecting, isConnected } = useAccount();
+  const { isInitialized, authState, ocAuth } = useOCAuth();
   let addr = useAccount().address;
   if (!addr) {
     addr = '0x0';
@@ -79,14 +82,15 @@ const Navbar = () => {
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItem disablePadding>
+        { !isInitialized && <OCLoginButton/> }
+        { isInitialized && <ListItem disablePadding>
           <ListItemButton onClick={() => router.push('/profile')}>
             <ListItemIcon>
               <Person4Icon />
             </ListItemIcon>
             <ListItemText primary={'View Profile'} />
           </ListItemButton>
-        </ListItem>
+        </ListItem> }
         <ListItem disablePadding>
           <ListItemButton onClick={() => setOpenCreateQuizModal(true)}>
             <ListItemIcon>
@@ -146,6 +150,14 @@ const Navbar = () => {
       }
     }
   };
+
+  if (!isInitialized) {
+    console.log('loading...');
+  }
+
+  if (isInitialized && authState.error) {
+    console.log(authState.error.message);
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>

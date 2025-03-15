@@ -20,6 +20,7 @@ import { cookieToInitialState } from 'wagmi';
 
 import { config } from '@/config'; */
 import Web3ModalProvider from '@/context';
+import OCConnectWrapper from '@/components/OCConnectWrapper';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -32,6 +33,11 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const router = useRouter();
+
+  const opts = {
+    redirectUri: 'http://localhost:3000/ocredirect', // Adjust this URL
+    referralCode: 'PARTNER6', // Assign partner code
+  };
 
   // const [bgColor, setBgColor] = useState('#fff');
 
@@ -58,6 +64,7 @@ export default function MyApp(props: MyAppProps) {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <Web3ModalProvider>
+        <OCConnectWrapper opts={opts} sandboxMode={true}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <GlobalNotification />
@@ -77,6 +84,7 @@ export default function MyApp(props: MyAppProps) {
           </Container>
           </Box>
         </ThemeProvider>
+        </OCConnectWrapper>
         </Web3ModalProvider>
       </CacheProvider>
     </Provider>
