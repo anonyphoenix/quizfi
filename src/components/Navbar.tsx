@@ -170,7 +170,7 @@ const Navbar = () => {
   };
 
   if (!isInitialized) {
-    console.log('loading...');
+    // console.log('loading...');
   }
 
   if (isInitialized && authState.error) {
