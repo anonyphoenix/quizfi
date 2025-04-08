@@ -35,9 +35,11 @@ export default function MyApp(props: MyAppProps) {
   const router = useRouter();
 
   const opts = {
-    redirectUri: 'http://localhost:3000/ocredirect', // Adjust this URL
-    referralCode: 'PARTNER6', // Assign partner code
+    redirectUri: process.env.NEXT_PUBLIC_MAIN_URL + 'ocredirect',
+    referralCode: 'PARTNERX', // TODO Assign partner code
   };
+
+  const sandboxMode = process.env.NEXT_PUBLIC_ENV == 'production' ? false : true;
 
   // const [bgColor, setBgColor] = useState('#fff');
 
@@ -64,7 +66,7 @@ export default function MyApp(props: MyAppProps) {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <Web3ModalProvider>
-        <OCConnectWrapper opts={opts} sandboxMode={true}>
+        <OCConnectWrapper opts={opts} sandboxMode={sandboxMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <GlobalNotification />
