@@ -112,7 +112,7 @@ const Navbar = () => {
         <ListItem disablePadding>
           <ListItemButton onClick={() => window.open('https://x.com/quiz_fi', '_blank')}>
             <ListItemIcon>
-              <GitHubIcon />
+              <XIcon />
             </ListItemIcon>
             <ListItemText primary={'QuizFi on X'} />
           </ListItemButton>
